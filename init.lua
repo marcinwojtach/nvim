@@ -22,4 +22,6 @@ require("lazy").setup({
 	require("plugins.lsp"),
 	require("plugins.autoformat"),
 	require("plugins.autocompletion"),
+	require("plugins.lazygit"),
+	require("plugins.gitsigns"),
 })
