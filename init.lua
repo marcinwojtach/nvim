@@ -24,4 +24,7 @@ require("lazy").setup({
 	require("plugins.autocompletion"),
 	require("plugins.lazygit"),
 	require("plugins.gitsigns"),
+	require("plugins.plugins"),
+	require("plugins.rainbow-delimiters"),
+	require("plugins.hover"),
 })
