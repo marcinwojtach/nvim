@@ -27,4 +27,5 @@ require("lazy").setup({
 	require("plugins.plugins"),
 	require("plugins.rainbow-delimiters"),
 	require("plugins.hover"),
+	require("plugins.typescript-tools"),
 })
