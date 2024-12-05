@@ -19,7 +19,6 @@ require("lazy").setup({
 	require("plugins.lualine"),
 	require("plugins.treesitter"),
 	require("plugins.telescope"),
-	require("plugins.lsp"),
 	require("plugins.autoformat"),
 	require("plugins.autocompletion"),
 	require("plugins.lazygit"),
@@ -27,5 +26,8 @@ require("lazy").setup({
 	require("plugins.plugins"),
 	require("plugins.rainbow-delimiters"),
 	require("plugins.hover"),
-	require("plugins.typescript-tools"),
+	require("plugins.lsp.lsp"),
+	require("plugins.lsp.typescript-tools"),
+	require("plugins.higlight-colors"),
+	require("plugins.noice-cmdline"),
 })
