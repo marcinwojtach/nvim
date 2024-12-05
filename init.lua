@@ -30,4 +30,5 @@ require("lazy").setup({
 	require("plugins.lsp.typescript-tools"),
 	require("plugins.higlight-colors"),
 	require("plugins.noice-cmdline"),
+	require("plugins.move"),
 })
