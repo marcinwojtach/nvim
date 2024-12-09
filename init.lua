@@ -31,4 +31,5 @@ require("lazy").setup({
 	require("plugins.higlight-colors"),
 	require("plugins.noice-cmdline"),
 	require("plugins.move"),
+	require("plugins.smear"),
 })

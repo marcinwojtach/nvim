@@ -3,8 +3,8 @@ return {
 	config = function()
 		vim.opt.termguicolors = true
 		require("nvim-highlight-colors").setup({
-			render = "virtual",
-			virtual_symbol = "■■■",
+			-- render = "virtual",
+			-- virtual_symbol = "■■■",
 		})
 	end,
 }
