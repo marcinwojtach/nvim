@@ -1,3 +1,4 @@
+-- INCLUDED IN SNACKS
 return {
 	"kdheepak/lazygit.nvim",
 	lazy = true,

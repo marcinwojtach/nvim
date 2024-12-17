@@ -19,6 +19,6 @@ vim.o.backspace = "indent,eol,start" -- allow backspace on
 vim.o.pumheight = 10 -- pop up menu height
 vim.o.conceallevel = 0 -- so that `` is visible in markdown files
 vim.o.fileencoding = "utf-8" -- the encoding written to a file
-vim.o.cmdheight = 1 -- more space in the neovim command line for displaying messages
+vim.o.cmdheight = 0 -- more space in the neovim command line for displaying messages
 vim.o.guicursor = "n-v-i-c:block-Cursor-blinkwait10-blinkon10-blinkoff10"
 vim.opt.showmode = false

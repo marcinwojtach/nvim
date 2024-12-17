@@ -1,16 +1,22 @@
 return {
-	{
-		-- Highlight todo, notes, etc in comments
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
-	},
-	{
-		-- Autoclose parentheses, brackets, quotes, etc.
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
-		opts = {},
-	},
+	require("plugins.neotree"),
+	require("plugins.themes.catppuccin"),
+	require("plugins.misc"),
+	require("plugins.autocompletion"),
+	require("plugins.whichkey"),
+	require("plugins.bufferline"),
+	require("plugins.lualine"),
+	require("plugins.treesitter"),
+	require("plugins.telescope"),
+	require("plugins.autoformat"),
+	require("plugins.rainbow-delimiters"),
+	require("plugins.hover"),
+	require("plugins.lsp.lsp"),
+	require("plugins.lsp.typescript-tools"),
+	require("plugins.highlight-colors"),
+	require("plugins.move"),
+	require("plugins.snacks"),
+	require("plugins.noice-cmdline"),
+	require("plugins.trouble"),
+	require("plugins.git-related"),
 }
