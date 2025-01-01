@@ -1,6 +1,9 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
     opts = {
       servers = {
         gopls = {},
@@ -14,6 +17,7 @@ return {
         emmet_language_server = {},
         css_variables = {},
         eslint = {},
+        lua_ls = {},
       },
     },
   },
