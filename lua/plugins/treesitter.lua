@@ -3,6 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
+        "astro",
         "css",
         "gitcommit",
         "gitignore",
@@ -13,7 +14,6 @@ return {
         "scss",
         "sql",
         "svelte",
-        "wgsl",
       })
     end,
   },

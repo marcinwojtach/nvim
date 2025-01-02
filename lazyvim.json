@@ -3,7 +3,8 @@
     "lazyvim.plugins.extras.lang.php"
   ],
   "news": {
-    "NEWS.md": "10960"
+    "NEWS.md": "10960",
+    "doc/news.txt": "10424"
   },
   "version": 7
 }
