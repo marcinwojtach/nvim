@@ -26,3 +26,11 @@ vim.keymap.set("n", "<Up>", ":resize +2<CR>", opts)
 vim.keymap.set("n", "<Down>", ":resize -2<CR>", opts)
 vim.keymap.set("n", "<Left>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
+
+-- commenting
+vim.keymap.set(
+  "n",
+  "gcd",
+  "yy<cmd>normal gcc<cr>o<esc>p",
+  vim.tbl_extend("force", opts, { desc = "Comment out and dupliate below" })
+)
