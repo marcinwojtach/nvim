@@ -11,7 +11,7 @@ vim.keymap.set("n", "x", '"_x', opts)
 vim.keymap.set("v", "p", '"_dP', opts)
 
 -- replace word under cursor
-vim.keymap.set("n", "<leader>j", "*``cgn", opts)
+vim.keymap.set("n", "<leader>j", "*``cgn", vim.tbl_extend("force", opts, { desc = "Replace word under the cursor" }))
 
 -- press jk fast to exit insert mode
 -- vim.keymap.set("i", "jk", "<ESC>", opts)
