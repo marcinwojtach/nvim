@@ -16,6 +16,7 @@ return {
         "svelte",
         "blade",
         "php_only",
+        "templ",
       })
     end,
     config = function(_, opts)

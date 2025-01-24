@@ -1,0 +1,15 @@
+{
+  "boilerplate-describe-subject": {
+    "prefix": "<jtdesc",
+    "description": "Basic javascript describe boilerplate with subject",
+    "body": [
+      "describe(($1) => {",
+      "  let subject: $2;",
+      "",
+      "  beforeEach(() => {",
+      "    $3",
+      "  })",
+      "}"
+    ]
+  }
+}

@@ -11,11 +11,20 @@ return {
     },
   },
   {
-    "folke/tokyonight.nvim",
+    "shaunsingh/nord.nvim",
+    name = "nord",
+    lazy = true,
+    priority = 1000,
+  },
+  {
+    "savq/melange-nvim",
     lazy = false,
     priority = 1000,
-    opts = {
-      style = "night",
-    },
+  },
+  {
+    "rmehri01/onenord.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
 }

@@ -5,7 +5,6 @@ return {
       servers = {
         html = { filetypes = { "html", "twig", "hbs" } },
         emmet_language_server = {},
-        -- emmet_ls = {},
         css_variables = {},
       },
     },
