@@ -22,15 +22,10 @@ vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
 
 -- resize windows
-vim.keymap.set("n", "<Up>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<Down>", ":resize -2<CR>", opts)
-vim.keymap.set("n", "<Left>", ":vertical resize +2<CR>", opts)
-vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<Up>", ":resize +20<CR>", opts)
+vim.keymap.set("n", "<Down>", ":resize -20<CR>", opts)
+vim.keymap.set("n", "<Left>", ":vertical resize +20<CR>", opts)
+vim.keymap.set("n", "<Right>", ":vertical resize -20<CR>", opts)
 
 -- commenting
-vim.keymap.set(
-  "n",
-  "gcd",
-  "yy<cmd>normal gcc<cr>o<esc>p",
-  vim.tbl_extend("force", opts, { desc = "Comment out and dupliate below" })
-)
+vim.keymap.set("n", "gcd", "yygccp", { remap = true, silent = true, desc = "Duplicate line and comment out the first" })

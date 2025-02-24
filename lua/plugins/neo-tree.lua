@@ -22,7 +22,7 @@ return {
     {
       "<leader>ge",
       function()
-        require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        require("neo-tree.command").execute({ source = "git_status", toggle = true, position = position })
       end,
       desc = "Git Explorer",
     },
