@@ -11,9 +11,10 @@ See `:h "statusline'` for more information about statusline.
 local devicons = require "nvim-web-devicons"
 
 local h_groups = {
-  color_error = "ErrorMsg",
-  color_warning = "WarningMsg",
-  color_accent = "MoreMsg",
+  color_error = "DiagnosticError",
+  color_warning = "DiagnosticWarn",
+  color_info = "DiagnosticInfo",
+  color_hint = "DiagnosticHint",
 }
 
 local function highlight(group)
@@ -52,8 +53,8 @@ local function lsp_diagnostics_status()
   local color_groups = {
     [vim.diagnostic.severity.ERROR] = h_groups.color_error,
     [vim.diagnostic.severity.WARN] = h_groups.color_warning,
-    [vim.diagnostic.severity.HINT] = h_groups.color_accent,
-    [vim.diagnostic.severity.INFO] = h_groups.color_accent,
+    [vim.diagnostic.severity.HINT] = h_groups.color_hint,
+    [vim.diagnostic.severity.INFO] = h_groups.color_info,
   }
 
   local status = { "" }
