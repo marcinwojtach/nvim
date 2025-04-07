@@ -10,36 +10,15 @@ See `:h "statusline'` for more information about statusline.
 
 local devicons = require "nvim-web-devicons"
 
-local colors = {
-  bg = "#14171B",
-  fg = "#E5E9F0",
-  error = "#FF5555",
-  warning = "#FFEE99",
-  accent = "#82AAFF",
-}
-
 local h_groups = {
-  statusline = "StatusLine",
-  color_icon = "IconColor",
-  color_error = "ErrorColor",
-  color_warning = "WarningColor",
-  color_accent = "AccentColor",
+  color_error = "ErrorMsg",
+  color_warning = "WarningMsg",
+  color_accent = "MoreMsg",
 }
-
-vim.api.nvim_set_hl(0, h_groups.statusline, { fg = colors.fg, bg = colors.bg })
-vim.api.nvim_set_hl(0, h_groups.color_error, { fg = colors.error, bg = colors.bg })
-vim.api.nvim_set_hl(0, h_groups.color_warning, { fg = colors.warning, bg = colors.bg })
-vim.api.nvim_set_hl(0, h_groups.color_accent, { fg = colors.accent, bg = colors.bg })
 
 local function highlight(group)
   return "%#" .. group .. "#"
 end
-
-local function set_icon_color(color)
-  vim.api.nvim_set_hl(0, h_groups.color_icon, { fg = color, bg = colors.bg })
-end
-
-set_icon_color(colors.fg)
 
 ---@return string
 local function lsp_attached()
@@ -89,7 +68,7 @@ local function lsp_diagnostics_status()
     end
   end
 
-  return table.concat(status, " ") .. highlight(h_groups.statusline)
+  return table.concat(status, " ")
 end
 
 ---@return string
@@ -97,12 +76,11 @@ local function file_route()
   local file_name = vim.fn.expand("%:t")
   local work_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t');
   local icon, color = devicons.get_icon_color(file_name, vim.bo.filetype)
-  set_icon_color(color)
   local file_icon = icon or ""
   if file_name ~= "" then
     return work_dir ..
         "%#Statusline# / .. / " ..
-        file_name .. " " .. highlight(h_groups.color_icon) .. " " .. file_icon .. "%#Statusline#"
+        file_name .. " " .. file_icon .. "%#Statusline#"
   end
 
   return work_dir

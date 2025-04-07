@@ -36,15 +36,6 @@ kset("n", "<S-Tab>", ":bprevious<CR>", opts({ desc = "Previous buffer" }))
 kset("n", "<leader>bd", ":bdelete<CR>", opts({ desc = "Delete buffer" }))
 kset("n", "<leader>bo", ":%bd|e#<CR>", opts({ desc = "Delete other buffers" }))
 
-kset("n", "<leader>wv", "<C-w>v", opts({ desc = "Split window vertically" }))
-kset("n", "<leader>wh", "<C-w>s", opts({ desc = "Split window horizontally" }))
-kset("n", "<leader>wq", ":close<CR>", opts({ desc = "Close window" }))
-
-kset("n", "<C-k>", ":wincmd k<CR>", opts({ desc = "Go to split up" }))
-kset("n", "<C-j>", ":wincmd j<CR>", opts({ desc = "Go to split down" }))
-kset("n", "<C-h>", ":wincmd h<CR>", opts({ desc = "Go to split left" }))
-kset("n", "<C-l>", ":wincmd l<CR>", opts({ desc = "Go to split right" }))
-
 kset("v", "p", '"_dP', opts({ desc = "Keep last yanked when pasting" }))
 
 kset("n", "<S-A-j>", "<cmd>execute 'move .+' . v:count1<CR>==", opts({ desc = "Move Down" }))

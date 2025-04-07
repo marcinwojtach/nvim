@@ -68,9 +68,7 @@ lspconfig.cssls.setup {
   capabilities = client_capabilities,
 }
 
--- lspconfig.html.setup {
---   capabilities = client_capabilities,
--- }
+-- lspconfig.eslint.setup({})
 
 lspconfig.angularls.setup {
   capabilities = lsp_capabilities,

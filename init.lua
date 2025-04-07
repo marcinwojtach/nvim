@@ -4,7 +4,8 @@ require 'options'
 require 'cmds'
 require 'keymaps'
 
-vim.cmd.colorscheme "makurai_less"
+vim.o.background = "light"
+vim.cmd.colorscheme "zenbones"
 
 require 'statusline'
 require 'cursorline'

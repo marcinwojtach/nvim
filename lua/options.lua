@@ -21,6 +21,7 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldlevel = 99
+opt.encoding = "utf-8"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
@@ -42,7 +43,7 @@ opt.sidescrolloff = 8
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
-opt.spelllang = 'en_us'
+opt.spelllang = 'en_us,pl'
 opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true

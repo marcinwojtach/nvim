@@ -1,9 +1,9 @@
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#ffffff' })
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#6F79A0' })
 
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = "*:n",
   callback = function()
-    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#6F79A0" })
   end,
 })
 
@@ -20,4 +20,3 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#B988B0" })
   end,
 })
-

@@ -65,6 +65,7 @@ Lazy.load({
   "NeogitOrg/neogit",
   -- UI
   "folke/which-key.nvim",
+  "chentoast/marks.nvim",
   -- MISC
   "windwp/nvim-autopairs",
   "folke/todo-comments.nvim",
@@ -72,7 +73,8 @@ Lazy.load({
   "ggandor/leap.nvim",
   -- THEME
   {
-    "rmehri01/onenord.nvim",
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
     lazy = false,
     priority = 1000,
   },
@@ -89,6 +91,7 @@ require "plugins.which-key"
 require "plugins.treesitter"
 require "plugins.cmp"
 require "plugins.conform"
+require "plugins.devicons"
 
 -- quick setup
 require "gitsigns".setup()
@@ -102,6 +105,7 @@ require "illuminate".configure()
 require "todo-comments".setup()
 require "neogit".setup()
 require "makurai".setup()
+require "marks".setup()
 
 -- local
 require "plugins.switchfiles"
