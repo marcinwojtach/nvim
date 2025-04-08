@@ -110,6 +110,13 @@ kset("n", "<leader>1", "<cmd>Yazi<CR>", opts({ desc = "Yazi - current file" }))
 kset("n", "<leader>2", "<cmd>Yazi cwd<CR>", opts({ desc = "Yazi - nvim working directory" }))
 kset("n", "<leader>3", "<cmd>Yazi toggle<CR>", opts({ desc = "Yazi - resume" }))
 
+-- PERSISTENCE
+kset("n", "<leader>qs", function() require("persistence").load() end,
+  opts({ desc = "Load session for current directory" }))
+kset("n", "<leader>qS", function() require("persistence").select() end, opts({ desc = "Select a session to load" }))
+kset("n", "<leader>ql", function() require("persistence").load({ last = true }) end,
+  opts({ desc = "Load the last session" }))
+
 
 wk.add({
   { "<leader>1",  group = "Yazi" },
@@ -119,4 +126,5 @@ wk.add({
   { "<leader>w",  group = "Window" },
   { "<leader>b",  group = "Buffers" },
   { "<leader>c",  group = "Code Action" },
+  { "<leader>q",  group = "Session" },
 })

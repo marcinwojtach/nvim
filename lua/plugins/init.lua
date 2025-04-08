@@ -71,6 +71,7 @@ Lazy.load({
   "folke/todo-comments.nvim",
   "RRethy/vim-illuminate",
   "ggandor/leap.nvim",
+  "folke/persistence.nvim",
   -- THEME
   {
     "zenbones-theme/zenbones.nvim",
@@ -106,6 +107,7 @@ require "todo-comments".setup()
 require "neogit".setup()
 require "makurai".setup()
 require "marks".setup()
+require "persistence".setup()
 
 -- local
 require "plugins.switchfiles"

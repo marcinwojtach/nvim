@@ -9,3 +9,4 @@ vim.cmd.colorscheme "zenbones"
 
 require 'statusline'
 require 'cursorline'
+require 'diagnostics'
