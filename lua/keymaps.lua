@@ -85,7 +85,7 @@ kset("n", "<leader>cr", vim.lsp.buf.rename, opts({ desc = "Rename" }))
 kset("n", "<leader>co",
   function()
     vim.lsp.buf.code_action({
-      context = { only = { "source.organizeImports" } },
+      context = { only = { "source.organizeImports" }, diagnostics = {} },
       apply = true,
     })
     vim.wait(100)

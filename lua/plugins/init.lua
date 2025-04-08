@@ -66,6 +66,7 @@ Lazy.load({
   -- UI
   "folke/which-key.nvim",
   "chentoast/marks.nvim",
+  "goolord/alpha-nvim",
   -- MISC
   "windwp/nvim-autopairs",
   "folke/todo-comments.nvim",
@@ -93,6 +94,7 @@ require "plugins.treesitter"
 require "plugins.cmp"
 require "plugins.conform"
 require "plugins.devicons"
+require "plugins.alpha"
 
 -- quick setup
 require "gitsigns".setup()
