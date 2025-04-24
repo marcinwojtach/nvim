@@ -51,19 +51,18 @@ Lazy.load({
   -- YAZI
   "mikavilpas/yazi.nvim",
   -- GIT
-  -- {
-  "kdheepak/lazygit.nvim",
-  lazy = true,
-  cmd = {
-    "LazyGit",
-    "LazyGitConfig",
-    "LazyGitCurrentFile",
-    "LazyGitFilter",
-    "LazyGitFilterCurrentFile",
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    }
   },
   "lewis6991/gitsigns.nvim",
-  "sindrets/diffview.nvim",
-  "NeogitOrg/neogit",
   -- UI
   "folke/which-key.nvim",
   "chentoast/marks.nvim",
@@ -121,7 +120,6 @@ require "yazi".setup({
 })
 require "illuminate".configure()
 require "todo-comments".setup()
-require "neogit".setup()
 require "makurai".setup()
 require "marks".setup()
 require "persistence".setup()
