@@ -7,6 +7,8 @@ require 'keymaps'
 vim.o.background = "light"
 vim.cmd.colorscheme "zenbones"
 
-require 'statusline'
+require 'lsp'
 require 'cursorline'
+require 'statusline'
+require 'winbar'
 require 'diagnostics'

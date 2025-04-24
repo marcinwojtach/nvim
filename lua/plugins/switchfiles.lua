@@ -49,7 +49,6 @@ local function read_files_only(dir_path)
 end
 
 local function open_files_select(dir_path)
-  -- local files = vim.fn.readdir(path, {n -> n =~ '.txt$'}
   local files = read_files_only(dir_path)
   vim.ui.select(files, { prompt = "Select File:" }, function(file_name)
     if file_name then
@@ -67,6 +66,7 @@ end
 function Switchfiles.select()
   local buff_name = vim.api.nvim_buf_get_name(0);
   local buff_dir = vim.fn.fnamemodify(buff_name, ':h');
+  -- TODO: add numbers for the most important files (html, css, spec) - keep the rest sorted at the end of the list
   open_files_select(buff_dir)
 end
 

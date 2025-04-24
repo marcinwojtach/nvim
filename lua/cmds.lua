@@ -19,3 +19,17 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     end
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdwinEnter" }, {
+--   group = augroup("cmdline_close"),
+--   callback = function()
+--     vim.opt.cmdheight = 1
+--   end
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "CmdlineLeave", "CmdwinLeave" }, {
+--   group = augroup("cmdline_open"),
+--   callback = function()
+--     vim.opt.cmdheight = 0
+--   end
+-- })

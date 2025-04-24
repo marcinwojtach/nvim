@@ -22,6 +22,7 @@ opt.fillchars = {
 }
 opt.foldlevel = 99
 opt.encoding = "utf-8"
+-- opt.cmdheight = 0
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true

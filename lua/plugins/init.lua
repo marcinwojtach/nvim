@@ -29,6 +29,7 @@ Lazy.load({
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
   -- LSP
+  "pmizio/typescript-tools.nvim",
   "neovim/nvim-lspconfig",
   -- FORMATTERS
   "stevearc/conform.nvim",
@@ -75,6 +76,16 @@ Lazy.load({
   "folke/persistence.nvim",
   -- THEME
   {
+    "vague2k/vague.nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "RRethy/base16-nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
     "zenbones-theme/zenbones.nvim",
     dependencies = "rktjmp/lush.nvim",
     lazy = false,
@@ -84,10 +95,14 @@ Lazy.load({
     "skardyy/makurai-nvim",
     lazy = false,
     priority = 1000,
+  },
+  {
+    "projekt0n/github-nvim-theme",
+    lazy = false,
+    priority = 1000,
   }
 })
 
-require "plugins.lspconfig"
 require "plugins.telescope"
 require "plugins.which-key"
 require "plugins.treesitter"

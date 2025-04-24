@@ -26,6 +26,11 @@ require('telescope').setup {
         ["dd"] = actions.delete_buffer,
       },
     },
+    path_display     = {
+      filename_first = {
+        reverse_directories = false,
+      },
+    },
   },
   pickers = {
     ignore_current_buffer = true,

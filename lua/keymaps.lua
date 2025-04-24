@@ -1,4 +1,25 @@
-local utils_diagnostics = require "plugins.diagnostics"
+local function filterDuplicates(array)
+  local uniqueArray = {}
+  for _, tableA in ipairs(array) do
+    local isDuplicate = false
+    for _, tableB in ipairs(uniqueArray) do
+      if vim.deep_equal(tableA, tableB) then
+        isDuplicate = true
+        break
+      end
+    end
+    if not isDuplicate then
+      table.insert(uniqueArray, tableA)
+    end
+  end
+  return uniqueArray
+end
+
+local function on_list(options)
+  options.items = filterDuplicates(options.items)
+  vim.fn.setqflist({}, ' ', options)
+  vim.cmd('botright copen')
+end
 
 local telescope = require "telescope.builtin"
 local wk = require("which-key")
@@ -26,8 +47,6 @@ kset("n", "<C-u>", "<C-u>zz", opts({ desc = "Scroll up and center" }))
 kset("n", "n", "nzzzv", opts({ desc = "Find next and center" }))
 kset("n", "N", "Nzzzv", opts({ desc = "Find previous and center" }))
 
-kset("n", "<Up>", ":resize +15<CR>", opts({ desc = "Increase window height" }))
-kset("n", "<Down>", ":resize -15<CR>", opts({ desc = "Decrease window height" }))
 kset("n", "<Left>", ":vertical resize -15<CR>", opts({ desc = "Decrease window width" }))
 kset("n", "<Right>", ":vertical resize +15<CR>", opts({ desc = "Increase window width" }))
 
@@ -49,8 +68,10 @@ kset("n", "<leader>n", "<cmd>messages<CR>", opts({ desc = "Show messages" }))
 
 kset("n", "<leader>cf", function() vim.lsp.buf.format() end, opts({ desc = "Format file" }))
 
-kset("n", "<S-Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
-kset("n", "<S-Right", function() Switchfiles.switch() end, opts({ desc = "Switch to similar file" }))
+kset("n", "<Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
+kset("n", "<Up", function() Switchfiles.switch() end, opts({ desc = "Switch to similar file" }))
+
+kset("n", "<leader>e", "<cmd>copen<CR>", opts({ desc = "Quickfix list" }))
 
 -- OIL
 kset("n", "-", "<CMD>Oil<CR>", opts({ desc = "Open parent directory" }))
@@ -71,13 +92,14 @@ kset("n", "<leader>sj", "<cmd>Telescope jumplist<CR>", opts({ desc = "Jumplist" 
 kset("n", "<leader>sfp", function() vim.notify(vim.fn.expand("%:p")) end, opts({ desc = "Show full file path" }))
 
 -- LSP
-kset("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts({ desc = "Definition" }))
-kset("n", "gr", "<cmd>Telescope lsp_references<CR>", opts({ desc = "References" }))
+kset("n", "gd", function() telescope.lsp_definitions() end, opts({ desc = "Goto Definition" }))
+kset("n", "gr", function() telescope.lsp_references(nil, { on_list = on_list, include_declaration = false }) end,
+  opts({ desc = "Goto References" }))
 kset("n", "gI", function() telescope.lsp_implementations({ reuse_win = true }) end,
-  opts({ desc = "Implementation" }))
-kset("n", "gD", vim.lsp.buf.declaration, opts({ desc = "Declaration" }))
+  opts({ desc = "Goto Implementation" }))
+kset("n", "gD", vim.lsp.buf.declaration, opts({ desc = "Goto Declaration" }))
 kset("n", "K", function() return vim.lsp.buf.hover() end, opts({ desc = "Hover" }))
-kset("n", "gK", function() return vim.lsp.buf.signature_help() end, opts({ desc = "Signature help" }))
+kset("n", "gS", function() return vim.lsp.buf.signature_help() end, opts({ desc = "Goto Signature help" }))
 
 -- Code action
 kset("n", "<leader>ca", vim.lsp.buf.code_action, opts({ desc = "Code Action" }))
