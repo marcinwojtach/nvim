@@ -9,3 +9,15 @@ wk.setup({
     },
   }
 })
+
+wk.add({
+  { "<leader>1",  group = "Yazi" },
+  { "<leader>s",  group = "Search / Show" },
+  { "<leader>g",  group = "Git" },
+  { "<leader>gh", group = "Hunks" },
+  { "<leader>w",  group = "Window" },
+  { "<leader>b",  group = "Buffers" },
+  { "<leader>c",  group = "Code Action" },
+  { "<leader>q",  group = "Session" },
+  { "<leader>u",  group = "UI" },
+})

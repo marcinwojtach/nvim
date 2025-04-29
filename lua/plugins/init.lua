@@ -29,14 +29,11 @@ Lazy.load({
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
   -- LSP
-  "pmizio/typescript-tools.nvim",
   "neovim/nvim-lspconfig",
   -- FORMATTERS
   "stevearc/conform.nvim",
-  -- TELESCOPE
-  { "nvim-telescope/telescope.nvim",            lazy = true },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
-  "nvim-telescope/telescope-ui-select.nvim",
+  -- FZF
+  "ibhagwan/fzf-lua",
   -- TREESITTER
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-context",
@@ -65,8 +62,8 @@ Lazy.load({
   "lewis6991/gitsigns.nvim",
   -- UI
   "folke/which-key.nvim",
-  "chentoast/marks.nvim",
   "goolord/alpha-nvim",
+  "lukas-reineke/indent-blankline.nvim",
   -- MISC
   "windwp/nvim-autopairs",
   "folke/todo-comments.nvim",
@@ -102,13 +99,13 @@ Lazy.load({
   }
 })
 
-require "plugins.telescope"
 require "plugins.which-key"
 require "plugins.treesitter"
 require "plugins.cmp"
 require "plugins.conform"
 require "plugins.devicons"
 require "plugins.alpha"
+require "plugins.fzf"
 
 -- quick setup
 require "gitsigns".setup()
@@ -121,8 +118,8 @@ require "yazi".setup({
 require "illuminate".configure()
 require "todo-comments".setup()
 require "makurai".setup()
-require "marks".setup()
 require "persistence".setup()
+require "ibl".setup()
 
 -- local
 require "plugins.switchfiles"

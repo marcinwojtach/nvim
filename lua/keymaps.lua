@@ -21,8 +21,7 @@ local function on_list(options)
   vim.cmd('botright copen')
 end
 
-local telescope = require "telescope.builtin"
-local wk = require("which-key")
+-- local telescope = require "telescope.builtin"
 local gitsigns = require "gitsigns"
 
 local default_opts = { noremap = true, silent = true }
@@ -63,8 +62,6 @@ kset("i", "<S-A-k>", "<esc><cmd>m .-2<CR>==gi", opts({ desc = "Move Up" }))
 kset("v", "<S-A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", opts({ desc = "Move Down" }))
 kset("v", "<S-A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", opts({ desc = "Move Up" }))
 
-kset("n", "<leader>n", "<cmd>messages<CR>", opts({ desc = "Show messages" }))
-
 kset("n", "<leader>cf", function() vim.lsp.buf.format() end, opts({ desc = "Format file" }))
 
 kset("n", "<Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
@@ -74,31 +71,6 @@ kset("n", "<leader>e", "<cmd>copen<CR>", opts({ desc = "Quickfix list" }))
 
 -- OIL
 kset("n", "-", "<CMD>Oil<CR>", opts({ desc = "Open parent directory" }))
-
--- TELESCOPE
-kset("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts({ desc = "Find files" }))
-kset("n", "<leader><leader>", "<cmd>Telescope live_grep<CR>", opts({ desc = "Live grep" }))
-kset("n", "<leader>,", "<cmd>Telescope buffers<CR>", opts({ desc = "Buffers" }))
-kset("n", "<leader>gf", "<cmd>Telescope git_files<CR>", opts({ desc = "Find Files (git-files)" }))
-kset("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts({ desc = "Git commits" }))
-kset("n", "<leader>sk", "<cmd>Telescope keymaps<CR>", opts({ desc = "Keymaps" }))
-kset("n", "<leader>sR", "<cmd>Telescope registers<CR>", opts({ desc = "Registers" }))
-kset("n", "<leader>sm", "<cmd>Telescope marks<CR>", opts({ desc = "Marks" }))
-kset("n", "<leader>ss", function() telescope.lsp_document_symbols() end,
-  opts({ desc = "Goto Symbol" }))
-kset("n", "<leader>sr", "<cmd>Telescope resume<CR>", opts({ desc = "Resume previous search" }))
-kset("n", "<leader>sj", "<cmd>Telescope jumplist<CR>", opts({ desc = "Jumplist" }))
-kset("n", "<leader>sfp", function() vim.notify(vim.fn.expand("%:p")) end, opts({ desc = "Show full file path" }))
-
--- LSP
-kset("n", "gd", function() telescope.lsp_definitions() end, opts({ desc = "Goto Definition" }))
-kset("n", "gr", function() telescope.lsp_references(nil, { on_list = on_list, include_declaration = false }) end,
-  opts({ desc = "Goto References" }))
-kset("n", "gI", function() telescope.lsp_implementations({ reuse_win = true }) end,
-  opts({ desc = "Goto Implementation" }))
-kset("n", "gD", vim.lsp.buf.declaration, opts({ desc = "Goto Declaration" }))
-kset("n", "K", function() return vim.lsp.buf.hover() end, opts({ desc = "Hover" }))
-kset("n", "gS", function() return vim.lsp.buf.signature_help() end, opts({ desc = "Goto Signature help" }))
 
 -- Code action
 kset("n", "<leader>ca", vim.lsp.buf.code_action, opts({ desc = "Code Action" }))
@@ -114,7 +86,33 @@ kset("n", "<leader>co",
   opts({ desc = "Organize Imports" })
 )
 kset("n", "<leader>cd", vim.diagnostic.open_float, opts({ desc = "Show Line Diagnostics" }))
-kset("n", "<leader>cD", function() telescope.diagnostics({ bufnr = 0 }) end, opts({ desc = "Show Buffer Diagnostics" }))
+
+-- File navigation
+kset("n", "<leader>f", "<cmd>FzfLua files<CR>", opts({ desc = "Find files" }))
+kset("n", "<leader><leader>", "<cmd>FzfLua live_grep<CR>", opts({ desc = "Grep files" }))
+kset("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<CR>", opts({ desc = "Buffers" }))
+kset("n", "<leader>m", "<cmd>FzfLua marks<CR>", opts({ desc = "Marks" }))
+
+-- Search
+kset("n", "<leader>sj", "<cmd>FzfLua jumps<CR>", opts({ desc = "Jumps" }))
+kset("n", "<leader>sr", function() FzfLua.resume() end, opts({ desc = "Resume search" }))
+kset("n", "<leader>sR", "<cmd>FzfLua registers<CR>", opts({ desc = "Registers" }))
+kset("n", "<leader>sv", "<cmd>FzfLua grep_visual<CR>", opts({ desc = "Grep visual selection" }))
+kset("n", "<leader>sw", "<cmd>FzfLua grep_cword<CR>", opts({ desc = "Grep word under cursor" }))
+kset("n", "<leader>ss", "<cmd>FzfLua lsp_document_symbols<CR>", opts({ desc = "Document symbols" }))
+kset("n", "<leader>sS", "<cmd>FzfLua lsp_workspace_symbols<CR>", opts({ desc = "Workspace symbols" }))
+kset("n", "<leader>sd", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts({ desc = "Document diagnostics" }))
+kset("n", "<leader>sD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", opts({ desc = "Workspace diagnostics" }))
+
+-- Go to
+kset("n", "gr", "<cmd>FzfLua lsp_references<CR>", opts({ desc = "Goto References" }))
+kset("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts({ desc = "Goto Definitions" }))
+kset("n", "gD", "<cmd>FzfLua lsp_declarations<CR>", opts({ desc = "Goto Declarations" }))
+kset("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts({ desc = "Goto Type Definitions" }))
+kset("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts({ desc = "Goto Implementations" }))
+kset("n", "go", "<cmd>FzfLua lsp_outgoing_calls<CR>", opts({ desc = "Show Outgoing calls" }))
+kset("n", "gO", "<cmd>FzfLua lsp_incoming_calls<CR>", opts({ desc = "Show Incoming calls" }))
+kset("n", "gf", "<cmd>FzfLua lsp_finder<CR>", opts({ desc = "Show LSP Locations" }))
 
 -- GIT
 kset("n", "<leader>gg", "<cmd>LazyGit<CR>", opts({ desc = "LazyGit" }))
@@ -124,6 +122,8 @@ kset("n", "<leader>ghp", gitsigns.preview_hunk, opts({ desc = "Preview hunk" }))
 kset("n", "<leader>ghi", gitsigns.preview_hunk_inline, opts({ desc = "Preview hunk inline" }))
 kset("n", "<leader>ghb", gitsigns.blame_line, opts({ desc = "Blame line" }))
 kset("n", "<leader>ght", gitsigns.toggle_current_line_blame, opts({ desc = "Toggle line blame" }))
+kset("n", "<leader>gc", "<cmd>FzfLua git_bcommits<CR>", opts({ desc = "Git buffer commits" }))
+kset("n", "<leader>gs", "<cmd>FzfLua git_stash<CR>", opts({ desc = "Git stash" }))
 
 -- YAZI
 kset("n", "<leader>1", "<cmd>Yazi<CR>", opts({ desc = "Yazi - current file" }))
@@ -137,14 +137,6 @@ kset("n", "<leader>qS", function() require("persistence").select() end, opts({ d
 kset("n", "<leader>ql", function() require("persistence").load({ last = true }) end,
   opts({ desc = "Load the last session" }))
 
-
-wk.add({
-  { "<leader>1",  group = "Yazi" },
-  { "<leader>s",  group = "Search / Show" },
-  { "<leader>g",  group = "Git" },
-  { "<leader>gh", group = "Hunks" },
-  { "<leader>w",  group = "Window" },
-  { "<leader>b",  group = "Buffers" },
-  { "<leader>c",  group = "Code Action" },
-  { "<leader>q",  group = "Session" },
-})
+-- UI
+kset("n", "<leader>uc", "<cmd>FzfLua colorschemes<CR>", opts({ desc = "Show colorschemes" }))
+kset("n", "<leader>uC", "<cmd>FzfLua awesome_colorschemes<CR>", opts({ desc = "Show awesome colorschemes" }))

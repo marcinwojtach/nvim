@@ -10,5 +10,4 @@ vim.cmd.colorscheme "zenbones"
 require 'lsp'
 require 'cursorline'
 require 'statusline'
-require 'winbar'
 require 'diagnostics'

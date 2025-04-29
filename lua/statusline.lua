@@ -9,6 +9,7 @@ See `:h "statusline'` for more information about statusline.
 ]]
 
 local devicons = require "nvim-web-devicons"
+local lsp_util = require "utils.lsp"
 
 local h_groups = {
   color_error = "DiagnosticError",
@@ -20,6 +21,21 @@ local h_groups = {
 ---@return string
 local function highlight(group)
   return "%#" .. group .. "#"
+end
+
+---@return string
+local function list_lsps()
+  local attached_clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #attached_clients == 0 then
+    return ""
+  end
+  local names = vim.iter(attached_clients)
+      :map(function(client)
+        local name = client.name:gsub("language.server", "ls")
+        return name
+      end)
+      :totable()
+  return table.concat(names, ", ")
 end
 
 --- @return string
@@ -35,6 +51,22 @@ local function git_branch()
   local git_icon = icon or ""
 
   return "%#MyGitIcon#" .. git_icon .. " " .. string.format('%%#StatusLineMedium#%s%%*', branch)
+end
+
+---@return string
+local function workspace()
+  local file_name = vim.fn.expand("%:t")
+  local work_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t');
+  local icon, color = devicons.get_icon_color(file_name, vim.bo.filetype)
+  vim.api.nvim_set_hl(0, 'MyFileColor', { fg = color })
+  local file_icon = icon or ""
+
+  if file_name ~= "" then
+    return work_dir ..
+        "%#Statusline# / .. / %#MyFileColor#" .. file_icon .. " %#Statusline#" .. file_name .. "%#Statusline#"
+  end
+
+  return work_dir
 end
 
 ---@return string
@@ -66,7 +98,7 @@ local function lsp_diagnostics_status()
 
   for diag, count in ipairs(issues) do
     if count > 0 then
-      table.insert(status, highlight(color_groups[diag]) .. "[" .. count .. "]")
+      table.insert(status, highlight(color_groups[diag]) .. count .. " " .. lsp_util.signs[diag])
     end
   end
 
@@ -76,10 +108,12 @@ end
 function _G.statusline()
   return table.concat({
     "%#Statusline#",
+    workspace(),
+    " ",
+    git_branch(),
     lsp_diagnostics_status(),
     "%=",
-    git_branch(),
-    "%=",
+    list_lsps(),
     "%l,%c",
     "%P",
     " ",
