@@ -89,7 +89,7 @@ kset("n", "<leader>cd", vim.diagnostic.open_float, opts({ desc = "Show Line Diag
 
 -- File navigation
 kset("n", "<leader>f", "<cmd>FzfLua files<CR>", opts({ desc = "Find files" }))
-kset("n", "<leader><leader>", "<cmd>FzfLua live_grep<CR>", opts({ desc = "Grep files" }))
+kset("n", "<leader>/", "<cmd>FzfLua live_grep<CR>", opts({ desc = "Grep files" }))
 kset("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<CR>", opts({ desc = "Buffers" }))
 kset("n", "<leader>m", "<cmd>FzfLua marks<CR>", opts({ desc = "Marks" }))
 
