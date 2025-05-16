@@ -55,18 +55,34 @@ end
 
 ---@return string
 local function workspace()
-  local file_name = vim.fn.expand("%:t")
-  local work_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t');
-  local icon, color = devicons.get_icon_color(file_name, vim.bo.filetype)
-  vim.api.nvim_set_hl(0, 'MyFileColor', { fg = color })
-  local file_icon = icon or ""
-
-  if file_name ~= "" then
-    return work_dir ..
-        "%#Statusline# / .. / %#MyFileColor#" .. file_icon .. " %#Statusline#" .. file_name .. "%#Statusline#"
+  local function file_icon()
+    local file_name = vim.fn.expand("%:t")
+    local icon, color = devicons.get_icon_color(file_name, vim.bo.filetype)
+    local file_icon = icon or ""
+    vim.api.nvim_set_hl(0, 'MyFileColor', { fg = color })
+    return "%#MyFileColor#" .. file_icon .. " %#Statusline#"
   end
 
-  return work_dir
+  local function short_path()
+    local file_name = vim.fn.expand("%:t")
+    local work_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t');
+
+    if file_name ~= "" then
+      return work_dir .. "%#Statusline# ~ " .. file_icon() .. file_name
+    end
+
+    return work_dir
+  end
+
+  local function long_path()
+    return vim.fn.expand('%:p:.') .. " " .. file_icon()
+  end
+
+  if vim.miedziany.statusline.show_full_path then
+    return long_path()
+  else
+    return short_path()
+  end
 end
 
 ---@return string
@@ -114,6 +130,7 @@ function _G.statusline()
     lsp_diagnostics_status(),
     "%=",
     list_lsps(),
+    " ",
     "%l,%c",
     "%P",
     " ",
@@ -123,6 +140,5 @@ end
 vim.o.statusline = "%{%v:lua._G.statusline()%}"
 
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  pattern = "*",
   callback = lsp_diagnostics_status,
 })

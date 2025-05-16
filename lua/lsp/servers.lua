@@ -8,6 +8,7 @@ return {
   'html',
   'intelephense',
   'jsonls',
+  'jdtls',
   'lua_ls',
   'pyright',
   'vtsls',

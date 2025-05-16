@@ -1,28 +1,6 @@
-local function filterDuplicates(array)
-  local uniqueArray = {}
-  for _, tableA in ipairs(array) do
-    local isDuplicate = false
-    for _, tableB in ipairs(uniqueArray) do
-      if vim.deep_equal(tableA, tableB) then
-        isDuplicate = true
-        break
-      end
-    end
-    if not isDuplicate then
-      table.insert(uniqueArray, tableA)
-    end
-  end
-  return uniqueArray
-end
-
-local function on_list(options)
-  options.items = filterDuplicates(options.items)
-  vim.fn.setqflist({}, ' ', options)
-  vim.cmd('botright copen')
-end
-
--- local telescope = require "telescope.builtin"
 local gitsigns = require "gitsigns"
+local lsp_utils = require "utils.lsp"
+local qf_util = require "utils.quickfix"
 
 local default_opts = { noremap = true, silent = true }
 local kset = vim.keymap.set
@@ -45,6 +23,8 @@ kset("n", "<C-u>", "<C-u>zz", opts({ desc = "Scroll up and center" }))
 kset("n", "n", "nzzzv", opts({ desc = "Find next and center" }))
 kset("n", "N", "Nzzzv", opts({ desc = "Find previous and center" }))
 
+kset("n", "<Down>", ":horizontal resize -15<CR>", opts({ desc = "Decrease window height" }))
+kset("n", "<Up>", ":horizontal resize +15<CR>", opts({ desc = "Increase window height" }))
 kset("n", "<Left>", ":vertical resize -15<CR>", opts({ desc = "Decrease window width" }))
 kset("n", "<Right>", ":vertical resize +15<CR>", opts({ desc = "Increase window width" }))
 
@@ -64,17 +44,17 @@ kset("v", "<S-A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv"
 
 kset("n", "<leader>cf", function() vim.lsp.buf.format() end, opts({ desc = "Format file" }))
 
-kset("n", "<Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
-kset("n", "<Up", function() Switchfiles.switch() end, opts({ desc = "Switch to similar file" }))
+-- kset("n", "<Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
+-- kset("n", "<Up", function() Switchfiles.switch() end, opts({ desc = "Switch to similar file" }))
 
-kset("n", "<leader>e", "<cmd>copen<CR>", opts({ desc = "Quickfix list" }))
+kset("n", "<leader>e", qf_util.toggle_qf, opts({ desc = "Quickfix list" }))
 
 -- OIL
 kset("n", "-", "<CMD>Oil<CR>", opts({ desc = "Open parent directory" }))
 
 -- Code action
 kset("n", "<leader>ca", vim.lsp.buf.code_action, opts({ desc = "Code Action" }))
-kset("n", "<leader>cr", vim.lsp.buf.rename, opts({ desc = "Rename" }))
+kset("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 kset("n", "<leader>co",
   function()
     vim.lsp.buf.code_action({
@@ -105,14 +85,16 @@ kset("n", "<leader>sd", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts({ desc 
 kset("n", "<leader>sD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", opts({ desc = "Workspace diagnostics" }))
 
 -- Go to
-kset("n", "gr", "<cmd>FzfLua lsp_references<CR>", opts({ desc = "Goto References" }))
-kset("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts({ desc = "Goto Definitions" }))
-kset("n", "gD", "<cmd>FzfLua lsp_declarations<CR>", opts({ desc = "Goto Declarations" }))
-kset("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts({ desc = "Goto Type Definitions" }))
-kset("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts({ desc = "Goto Implementations" }))
-kset("n", "go", "<cmd>FzfLua lsp_outgoing_calls<CR>", opts({ desc = "Show Outgoing calls" }))
-kset("n", "gO", "<cmd>FzfLua lsp_incoming_calls<CR>", opts({ desc = "Show Incoming calls" }))
-kset("n", "gf", "<cmd>FzfLua lsp_finder<CR>", opts({ desc = "Show LSP Locations" }))
+kset("n", "gr", function() vim.lsp.buf.references(nil, { on_list = lsp_utils.on_list }) end,
+  opts({ desc = "Goto References", nowait = true }))
+kset("n", "gd", vim.lsp.buf.definition, opts({ desc = "Goto Definition", nowait = true }))
+kset("n", "gD", vim.lsp.buf.declaration, opts({ desc = "Goto Declarations", nowait = true }))
+kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definitions", nowait = true }))
+kset("n", "gi", vim.lsp.buf.implementation, ({ desc = "Goto Implementations", nowait = true }))
+kset("n", "go", vim.lsp.buf.outgoing_calls, opts({ desc = "Show Outgoing calls", nowait = true }))
+kset("n", "gO", vim.lsp.buf.incoming_calls, opts({ desc = "Show Incoming calls", nowait = true }))
+kset("n", "gf", function() vim.lsp.buf.get_locations(nil, { on_list = lsp_utils.on_list }) end,
+  opts({ desc = "Show LSP Locations", nowait = true }))
 
 -- GIT
 kset("n", "<leader>gg", "<cmd>LazyGit<CR>", opts({ desc = "LazyGit" }))
@@ -140,3 +122,6 @@ kset("n", "<leader>ql", function() require("persistence").load({ last = true }) 
 -- UI
 kset("n", "<leader>uc", "<cmd>FzfLua colorschemes<CR>", opts({ desc = "Show colorschemes" }))
 kset("n", "<leader>uC", "<cmd>FzfLua awesome_colorschemes<CR>", opts({ desc = "Show awesome colorschemes" }))
+kset("n", "<leader>uf", function()
+  vim.miedziany.statusline.show_full_path = not vim.miedziany.statusline.show_full_path
+end, opts({ desc = "Toggle show full path in statusline" }))

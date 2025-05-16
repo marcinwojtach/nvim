@@ -1,16 +1,21 @@
-require 'nvim-treesitter.configs'.setup {
+local M = {}
+
+M.config = {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = {
+    "blade",
+    "html",
+    "java",
+    "javascript",
+    "kotlin",
     "lua",
-    "vim",
-    "vimdoc",
     "markdown",
     "markdown_inline",
-    "html",
+    "php",
     "typescript",
-    "javascript",
-    "blade",
-    "php"
+    "vim",
+    "vimdoc",
+    "yaml",
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -26,6 +31,9 @@ require 'nvim-treesitter.configs'.setup {
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
+  indent = {
+    enable = { 'php' },
+  },
   highlight = {
     enable = true,
 
@@ -49,7 +57,9 @@ require 'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
-}
+};
+
+require 'nvim-treesitter.configs'.setup(M.config)
 
 vim.filetype.add({
   pattern = {
@@ -66,3 +76,5 @@ parser_config.blade = {
   },
   filetype = "blade",
 }
+
+return M

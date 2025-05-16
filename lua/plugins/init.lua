@@ -30,10 +30,14 @@ Lazy.load({
   "nvim-tree/nvim-web-devicons",
   -- LSP
   "neovim/nvim-lspconfig",
+  -- LANGUAGE TOOLS
+  "GustavEikaas/easy-dotnet.nvim",
   -- FORMATTERS
   "stevearc/conform.nvim",
   -- FZF
   "ibhagwan/fzf-lua",
+  -- QUICKFIX
+  { "kevinhwang91/nvim-bqf", ft = "qf" },
   -- TREESITTER
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-context",
@@ -70,6 +74,7 @@ Lazy.load({
   "RRethy/vim-illuminate",
   "ggandor/leap.nvim",
   "folke/persistence.nvim",
+  "catgoose/nvim-colorizer.lua",
   -- THEME
   {
     "vague2k/vague.nvim",
@@ -106,6 +111,7 @@ require "plugins.conform"
 require "plugins.devicons"
 require "plugins.alpha"
 require "plugins.fzf"
+require "plugins.bqf"
 
 -- quick setup
 require "gitsigns".setup()
@@ -120,6 +126,8 @@ require "todo-comments".setup()
 require "makurai".setup()
 require "persistence".setup()
 require "ibl".setup()
+require "colorizer".setup()
+require "easy-dotnet".setup()
 
 -- local
 require "plugins.switchfiles"

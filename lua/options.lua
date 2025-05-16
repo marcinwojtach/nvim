@@ -30,6 +30,14 @@ opt.inccommand = "nosplit"
 opt.jumpoptions = "view"
 opt.laststatus = 3
 opt.linebreak = true
+local space = " "
+opt.listchars:append {
+  tab = "  ",
+  multispace = space,
+  lead = space,
+  trail = space,
+  nbsp = space
+}
 opt.list = true
 opt.number = true
 opt.hlsearch = false
@@ -44,7 +52,7 @@ opt.sidescrolloff = 8
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
-opt.spelllang = 'en_us,pl'
+opt.spelllang = 'en_us'
 opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
@@ -58,3 +66,10 @@ opt.wildmode = "longest:full,full"
 opt.winminwidth = 5
 opt.wrap = false
 opt.guicursor = "n-v-c-sm:block,n:blinkon200,n:blinkoff200,i-ci-ve:ver25,r-cr-o:hor20"
+
+-- MIEDZIANY
+vim.miedziany = {
+  statusline = {
+    show_full_path = false,
+  }
+}
