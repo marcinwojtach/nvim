@@ -4,9 +4,9 @@ require 'options'
 require 'cmds'
 require 'keymaps'
 
-vim.cmd.colorscheme "kanagawabones"
+vim.cmd.colorscheme "ayu-dark"
 
 require 'lsp'
-require 'cursorline'
+-- require 'cursorline'
 require 'statusline'
 require 'diagnostics'

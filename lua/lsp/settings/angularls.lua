@@ -4,15 +4,22 @@ if not ok then
   return
 end
 
+local function get_probe_dir(root_dir)
+  local project_root = vim.fs.dirname(vim.fs.find('node_modules', { path = root_dir, upward = true })[1])
+
+  return project_root and (project_root .. '/node_modules') or ''
+end
+
 local config = {
   on_new_config = function(new_config, new_root_dir)
+    local probe_dir= get_probe_dir(new_root_dir)
     new_config.cmd = {
       "ngserver",
       "--stdio",
       "--tsProbeLocations",
-      new_root_dir,
+      probe_dir,
       "--ngProbeLocations",
-      new_root_dir,
+      probe_dir,
     }
   end,
   root_dir = function(fname)

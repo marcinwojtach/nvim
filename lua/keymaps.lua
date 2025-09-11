@@ -17,16 +17,16 @@ kset("n", "x", '"_x', default_opts)
 kset("v", "<", "<gv", default_opts)
 kset("v", ">", ">gv", default_opts)
 
-kset("n", "<C-d>", "<C-d>zz", opts({ desc = "Scroll down and center" }))
-kset("n", "<C-u>", "<C-u>zz", opts({ desc = "Scroll up and center" }))
+-- kset("n", "<C-d>", "<C-d>zz", opts({ desc = "Scroll down and center" }))
+-- kset("n", "<C-u>", "<C-u>zz", opts({ desc = "Scroll up and center" }))
 
 kset("n", "n", "nzzzv", opts({ desc = "Find next and center" }))
 kset("n", "N", "Nzzzv", opts({ desc = "Find previous and center" }))
 
 kset("n", "<Down>", ":horizontal resize -15<CR>", opts({ desc = "Decrease window height" }))
 kset("n", "<Up>", ":horizontal resize +15<CR>", opts({ desc = "Increase window height" }))
-kset("n", "<Left>", ":vertical resize -15<CR>", opts({ desc = "Decrease window width" }))
-kset("n", "<Right>", ":vertical resize +15<CR>", opts({ desc = "Increase window width" }))
+kset("n", "<Left>", ":vertical resize +15<CR>", opts({ desc = "Increase window width" }))
+kset("n", "<Right>", ":vertical resize -15<CR>", opts({ desc = "Decrease window width" }))
 
 kset("n", "<Tab>", ":bnext<CR>", opts({ desc = "Next buffer" }))
 kset("n", "<S-Tab>", ":bprevious<CR>", opts({ desc = "Previous buffer" }))
@@ -93,8 +93,11 @@ kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definition
 kset("n", "gi", vim.lsp.buf.implementation, ({ desc = "Goto Implementations", nowait = true }))
 kset("n", "go", vim.lsp.buf.outgoing_calls, opts({ desc = "Show Outgoing calls", nowait = true }))
 kset("n", "gO", vim.lsp.buf.incoming_calls, opts({ desc = "Show Incoming calls", nowait = true }))
-kset("n", "gf", function() vim.lsp.buf.get_locations(nil, { on_list = lsp_utils.on_list }) end,
-  opts({ desc = "Show LSP Locations", nowait = true }))
+
+kset("n", "gl", "$", opts({ desc = "Goto line end" }))
+kset("n", "gh", "0", opts({ desc = "Goto line start" }))
+kset("n", "gs", "_", opts({ desc = "Goto first non empty character" }))
+kset("n", "ge", "G", opts({ desc = "Goto end of file" }))
 
 -- GIT
 kset("n", "<leader>gg", "<cmd>LazyGit<CR>", opts({ desc = "LazyGit" }))
@@ -106,6 +109,9 @@ kset("n", "<leader>ghb", gitsigns.blame_line, opts({ desc = "Blame line" }))
 kset("n", "<leader>ght", gitsigns.toggle_current_line_blame, opts({ desc = "Toggle line blame" }))
 kset("n", "<leader>gc", "<cmd>FzfLua git_bcommits<CR>", opts({ desc = "Git buffer commits" }))
 kset("n", "<leader>gs", "<cmd>FzfLua git_stash<CR>", opts({ desc = "Git stash" }))
+kset("n", "<leader>gb", "<cmd>FzfLua git_branches<CR>", opts({ desc = "Git branches" }))
+
+kset("n", "<leader><leader>", "<cmd>FzfLua git_status<CR>", opts({ desc = "Git status files" }))
 
 -- YAZI
 kset("n", "<leader>1", "<cmd>Yazi<CR>", opts({ desc = "Yazi - current file" }))
@@ -119,9 +125,20 @@ kset("n", "<leader>qS", function() require("persistence").select() end, opts({ d
 kset("n", "<leader>ql", function() require("persistence").load({ last = true }) end,
   opts({ desc = "Load the last session" }))
 
+-- HOP
+kset("n", "s", "<cmd>HopWord<CR>", opts({ desc = "Hop word" }))
+kset("n", "L", "<cmd>HopLine<CR>", opts({ desc = "Hop line" }))
+
 -- UI
 kset("n", "<leader>uc", "<cmd>FzfLua colorschemes<CR>", opts({ desc = "Show colorschemes" }))
 kset("n", "<leader>uC", "<cmd>FzfLua awesome_colorschemes<CR>", opts({ desc = "Show awesome colorschemes" }))
 kset("n", "<leader>uf", function()
   vim.miedziany.statusline.show_full_path = not vim.miedziany.statusline.show_full_path
 end, opts({ desc = "Toggle show full path in statusline" }))
+kset("n", "<leader>up", function()
+  if require "precognition".toggle() then
+    vim.notify("precognition on")
+  else
+    vim.notify("precognition off")
+  end
+end, opts({ desc = "Toggle precognition" }))

@@ -4,6 +4,7 @@ M.config = {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = {
     "blade",
+    "elm",
     "html",
     "java",
     "javascript",
@@ -12,6 +13,7 @@ M.config = {
     "markdown",
     "markdown_inline",
     "php",
+    "razor",
     "typescript",
     "vim",
     "vimdoc",

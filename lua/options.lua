@@ -44,7 +44,7 @@ opt.hlsearch = false
 opt.pumblend = 10
 opt.pumheight = 10
 opt.relativenumber = true
-opt.scrolloff = 12
+opt.scrolloff = 30
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftwidth = 2
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -56,6 +56,7 @@ opt.spelllang = 'en_us'
 opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
+opt.swapfile = false
 opt.tabstop = 2
 opt.termguicolors = true
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
@@ -64,12 +65,13 @@ opt.undolevels = 10000
 opt.updatetime = 200
 opt.wildmode = "longest:full,full"
 opt.winminwidth = 5
+opt.winborder = "single"
 opt.wrap = false
-opt.guicursor = "n-v-c-sm:block,n:blinkon200,n:blinkoff200,i-ci-ve:ver25,r-cr-o:hor20"
+opt.guicursor = "n-v-c-sm:block,n:blinkon300,n:blinkoff300,i-ci-ve:ver25,r-cr-o:hor20"
 
 -- MIEDZIANY
 vim.miedziany = {
   statusline = {
-    show_full_path = false,
+    show_full_path = true,
   }
 }

@@ -32,3 +32,5 @@ end
 vim.api.nvim_create_user_command('LspCheckhealth', function()
   vim.cmd ':silent :vertical checkhealth vim.lsp'
 end, {})
+
+vim.lsp.inlay_hint.enable(true);

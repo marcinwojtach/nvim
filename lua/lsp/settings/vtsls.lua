@@ -7,6 +7,7 @@ local config = {
         maxInlayHintLength = 30,
         completion = {
           enableServerSideFuzzyMatch = true,
+          entriesLimit = 200,
         },
       },
     },

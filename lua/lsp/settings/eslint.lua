@@ -1,5 +1,3 @@
-local config = {
-  single_file_support = false,
-}
+local config = {}
 
 return config

@@ -124,9 +124,7 @@ end
 function _G.statusline()
   return table.concat({
     "%#Statusline#",
-    workspace(),
-    " ",
-    git_branch(),
+    "%f %M",
     lsp_diagnostics_status(),
     "%=",
     list_lsps(),
@@ -142,3 +140,4 @@ vim.o.statusline = "%{%v:lua._G.statusline()%}"
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
   callback = lsp_diagnostics_status,
 })
+

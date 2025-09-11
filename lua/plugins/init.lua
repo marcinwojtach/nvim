@@ -30,8 +30,8 @@ Lazy.load({
   "nvim-tree/nvim-web-devicons",
   -- LSP
   "neovim/nvim-lspconfig",
+  "mason-org/mason.nvim",
   -- LANGUAGE TOOLS
-  "GustavEikaas/easy-dotnet.nvim",
   -- FORMATTERS
   "stevearc/conform.nvim",
   -- FZF
@@ -41,6 +41,7 @@ Lazy.load({
   -- TREESITTER
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-context",
+  "nvim-treesitter/playground",
   -- AUTOCOMPLETE
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
@@ -69,15 +70,30 @@ Lazy.load({
   "goolord/alpha-nvim",
   "lukas-reineke/indent-blankline.nvim",
   -- MISC
+  "karb94/neoscroll.nvim",
+  "tris203/precognition.nvim",
+  "echasnovski/mini.snippets",
   "windwp/nvim-autopairs",
   "folke/todo-comments.nvim",
   "RRethy/vim-illuminate",
-  "ggandor/leap.nvim",
+  -- "ggandor/leap.nvim",
   "folke/persistence.nvim",
   "catgoose/nvim-colorizer.lua",
+  "EvWilson/spelunk.nvim",
+  "smoka7/hop.nvim",
   -- THEME
   {
-    "vague2k/vague.nvim",
+    "oneslash/helix-nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "savq/melange-nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "Shatur/neovim-ayu",
     lazy = false,
     priority = 1000,
   },
@@ -97,11 +113,6 @@ Lazy.load({
     lazy = false,
     priority = 1000,
   },
-  {
-    "projekt0n/github-nvim-theme",
-    lazy = false,
-    priority = 1000,
-  }
 })
 
 require "plugins.which-key"
@@ -112,22 +123,30 @@ require "plugins.devicons"
 require "plugins.alpha"
 require "plugins.fzf"
 require "plugins.bqf"
+-- require "plugins.neoscroll"
+-- require "plugins.mini-snippets"
 
 -- quick setup
-require "gitsigns".setup()
+require "gitsigns".setup({
+  current_line_blame = true,
+})
 require "nvim-autopairs".setup()
 require "oil".setup()
-require "leap".create_default_mappings()
+-- require "leap".create_default_mappings()
 require "yazi".setup({
   floating_window_scaling_factor = 1
 })
 require "illuminate".configure()
 require "todo-comments".setup()
-require "makurai".setup()
 require "persistence".setup()
 require "ibl".setup()
 require "colorizer".setup()
-require "easy-dotnet".setup()
+require "mason".setup()
+require "spelunk".setup({
+  enable_persist = true
+})
+require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
+
 
 -- local
 require "plugins.switchfiles"
