@@ -28,6 +28,7 @@ vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.rename(nil, { name = "v
   { noremap = true, desc = "Rename" })
 
 vim.fn.setreg('l', 'viwy' .. macros.esc .. 'oconsole.log()' .. macros.esc .. 'P' .. macros.esc .. '_')
+vim.fn.setreg('k', 'viwy' .. macros.esc .. "oconsole.log('', )" .. macros.esc .. "hhhP" .. macros.esc .. "lllp" .. macros.esc .. "_")
 
 vim.api.nvim_create_user_command(
   'SpecIt',

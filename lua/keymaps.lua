@@ -93,6 +93,7 @@ kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definition
 kset("n", "gi", vim.lsp.buf.implementation, ({ desc = "Goto Implementations", nowait = true }))
 kset("n", "go", vim.lsp.buf.outgoing_calls, opts({ desc = "Show Outgoing calls", nowait = true }))
 kset("n", "gO", vim.lsp.buf.incoming_calls, opts({ desc = "Show Incoming calls", nowait = true }))
+kset("n", "gV","<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts({ desc = "Goto Definition in Vertical Split", nowait = true }))
 
 kset("n", "gl", "$", opts({ desc = "Goto line end" }))
 kset("n", "gh", "0", opts({ desc = "Goto line start" }))

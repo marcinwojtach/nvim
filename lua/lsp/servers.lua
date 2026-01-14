@@ -2,7 +2,7 @@ return {
   "angularls",
   "bashls",
   "cssls",
-  "custom_elements_ls",
+  -- "custom_elements_ls",
   -- "emmet_language_server",
   -- "eslint",
   "elmls",
