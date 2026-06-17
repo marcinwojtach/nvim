@@ -3,12 +3,6 @@ local lsp_util = require "utils.lsp"
 vim.diagnostic.config({
   virtual_text = true,
   virtual_lines = false,
-  -- virtual_lines = {
-  --   current_line = true,
-  --   severity = {
-  --     min = vim.diagnostic.severity.WARN
-  --   }
-  -- },
   signs = {
     text = lsp_util.signs,
   },

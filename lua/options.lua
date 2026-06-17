@@ -22,7 +22,6 @@ opt.fillchars = {
 }
 opt.foldlevel = 99
 opt.encoding = "utf-8"
--- opt.cmdheight = 0
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
@@ -69,9 +68,5 @@ opt.winborder = "single"
 opt.wrap = false
 opt.guicursor = "n-v-c-sm:block,n:blinkon300,n:blinkoff300,i-ci-ve:ver25,r-cr-o:hor20"
 
--- MIEDZIANY
-vim.miedziany = {
-  statusline = {
-    show_full_path = true,
-  }
-}
+--- INTERNAL CMDS
+vim.cmd.packadd "nvim.undotree"

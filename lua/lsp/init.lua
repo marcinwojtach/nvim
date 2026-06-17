@@ -1,12 +1,14 @@
+-- TODO: migrate to built in lsp
 local lspconfig = require 'lspconfig'
 local servers = require 'lsp.servers'
+local mason_installer = require "mason-tool-installer"
 
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
 client_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local M = {}
 
-function M.on_attach(client, bufnr)
+function M.on_attach(client)
   client.inlay_hints = {
     enabled = true,
   }
@@ -15,6 +17,10 @@ function M.on_attach(client, bufnr)
     client.server_capabilities.renameProvider = false
   end
 end
+
+mason_installer.setup({
+  ensure_installed = servers,
+})
 
 for _, server in pairs(servers) do
   local server_opts = {

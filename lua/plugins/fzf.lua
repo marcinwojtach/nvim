@@ -1,5 +1,10 @@
 require "fzf-lua".setup {
   "border-fused",
+  keymap = {
+    fzf = {
+      ["alt-a"] = "select-all+accept"
+    }
+  },
   defaults = {
     formatter = { "path.filename_first", 999 }
   },

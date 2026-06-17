@@ -1,130 +1,63 @@
-local Lazy = {}
-
-function Lazy.install(path)
-  if not vim.loop.fs_stat(path) then
-    print("Installing lazy.nvim....")
-    vim.fn.system({
-      "git",
-      "clone",
-      "--filter=blob:none",
-      "https://github.com/folke/lazy.nvim.git",
-      "--branch=stable", -- latest stable release
-      path,
-    })
-  end
-end
-
-function Lazy.load(p)
-  local plugins = p or {}
-  Lazy.install(Lazy.path)
-  vim.opt.rtp:prepend(Lazy.path)
-  require("lazy").setup(plugins, Lazy.opts)
-end
-
-Lazy.path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-Lazy.opts = {}
-
-Lazy.load({
+vim.pack.add({
   -- BASE
-  "nvim-lua/plenary.nvim",
-  "nvim-tree/nvim-web-devicons",
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
   -- LSP
-  "neovim/nvim-lspconfig",
-  "mason-org/mason.nvim",
-  -- LANGUAGE TOOLS
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mason-org/mason.nvim",
+  "https://github.com/mason-org/mason-lspconfig.nvim",
+  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
   -- FORMATTERS
-  "stevearc/conform.nvim",
+  "https://github.com/stevearc/conform.nvim",
   -- FZF
-  "ibhagwan/fzf-lua",
+  "https://github.com/ibhagwan/fzf-lua",
   -- QUICKFIX
-  { "kevinhwang91/nvim-bqf", ft = "qf" },
-  -- TREESITTER
-  "nvim-treesitter/nvim-treesitter",
-  "nvim-treesitter/nvim-treesitter-context",
-  "nvim-treesitter/playground",
+  "https://github.com/kevinhwang91/nvim-bqf",
   -- AUTOCOMPLETE
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/nvim-cmp",
-  -- OIL
-  "stevearc/oil.nvim",
-  -- YAZI
-  "mikavilpas/yazi.nvim",
+  "https://github.com/hrsh7th/cmp-nvim-lsp",
+  "https://github.com/hrsh7th/cmp-buffer",
+  "https://github.com/hrsh7th/cmp-path",
+  "https://github.com/hrsh7th/cmp-cmdline",
+  "https://github.com/hrsh7th/nvim-cmp",
+  "https://github.com/stevearc/oil.nvim",
+  "https://github.com/mikavilpas/yazi.nvim",
   -- GIT
-  {
-    "kdheepak/lazygit.nvim",
-    lazy = true,
-    cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
-    }
-  },
-  "lewis6991/gitsigns.nvim",
+  "https://github.com/kdheepak/lazygit.nvim",
+  "https://github.com/lewis6991/gitsigns.nvim",
   -- UI
-  "folke/which-key.nvim",
-  "goolord/alpha-nvim",
-  "lukas-reineke/indent-blankline.nvim",
+  "https://github.com/folke/which-key.nvim",
+  "https://github.com/goolord/alpha-nvim",
+  "https://github.com/lukas-reineke/indent-blankline.nvim",
   -- MISC
-  "karb94/neoscroll.nvim",
-  "tris203/precognition.nvim",
-  "echasnovski/mini.snippets",
-  "windwp/nvim-autopairs",
-  "folke/todo-comments.nvim",
-  "RRethy/vim-illuminate",
-  -- "ggandor/leap.nvim",
-  "folke/persistence.nvim",
-  "catgoose/nvim-colorizer.lua",
-  "EvWilson/spelunk.nvim",
-  "smoka7/hop.nvim",
-  -- THEME
-  {
-    "oneslash/helix-nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "savq/melange-nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "Shatur/neovim-ayu",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "RRethy/base16-nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "skardyy/makurai-nvim",
-    lazy = false,
-    priority = 1000,
-  },
+  "https://github.com/karb94/neoscroll.nvim",
+  "https://github.com/tris203/precognition.nvim",
+  "https://github.com/echasnovski/mini.snippets",
+  "https://github.com/windwp/nvim-autopairs",
+  "https://github.com/folke/todo-comments.nvim",
+  "https://github.com/RRethy/vim-illuminate",
+  "https://github.com/folke/persistence.nvim",
+  "https://github.com/catgoose/nvim-colorizer.lua",
+  "https://github.com/EvWilson/spelunk.nvim",
+  "https://github.com/smoka7/hop.nvim",
+  "https://github.com/kungfusheep/mfd.nvim",
+  "https://github.com/oneslash/helix-nvim",
+  "https://github.com/savq/melange-nvim",
+  "https://github.com/Shatur/neovim-ayu",
+  "https://github.com/RRethy/base16-nvim",
+  "https://github.com/zenbones-theme/zenbones.nvim",
+  "https://github.com/skardyy/makurai-nvim",
+  -- AI
+  "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
 })
 
 require "plugins.which-key"
-require "plugins.treesitter"
 require "plugins.cmp"
 require "plugins.conform"
 require "plugins.devicons"
 require "plugins.alpha"
 require "plugins.fzf"
 require "plugins.bqf"
--- require "plugins.neoscroll"
--- require "plugins.mini-snippets"
+require "plugins.ai"
 
 -- quick setup
 require "gitsigns".setup({
@@ -132,7 +65,6 @@ require "gitsigns".setup({
 })
 require "nvim-autopairs".setup()
 require "oil".setup()
--- require "leap".create_default_mappings()
 require "yazi".setup({
   floating_window_scaling_factor = 1
 })
@@ -146,7 +78,6 @@ require "spelunk".setup({
   enable_persist = true
 })
 require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
-
 
 -- local
 require "plugins.switchfiles"

@@ -9,5 +9,4 @@ local ts = {
 devicons.set_icon {
   ts = ts,
   typescript = ts
-
 }

@@ -1,5 +1,6 @@
 local gitsigns = require "gitsigns"
 local lsp_utils = require "utils.lsp"
+local file_utils = require "utils.files"
 local qf_util = require "utils.quickfix"
 
 local default_opts = { noremap = true, silent = true }
@@ -17,9 +18,6 @@ kset("n", "x", '"_x', default_opts)
 kset("v", "<", "<gv", default_opts)
 kset("v", ">", ">gv", default_opts)
 
--- kset("n", "<C-d>", "<C-d>zz", opts({ desc = "Scroll down and center" }))
--- kset("n", "<C-u>", "<C-u>zz", opts({ desc = "Scroll up and center" }))
-
 kset("n", "n", "nzzzv", opts({ desc = "Find next and center" }))
 kset("n", "N", "Nzzzv", opts({ desc = "Find previous and center" }))
 
@@ -35,17 +33,14 @@ kset("n", "<leader>bo", ":%bd|e#<CR>", opts({ desc = "Delete other buffers" }))
 
 kset("v", "p", '"_dP', opts({ desc = "Keep last yanked when pasting" }))
 
-kset("n", "<S-A-j>", "<cmd>execute 'move .+' . v:count1<CR>==", opts({ desc = "Move Down" }))
-kset("n", "<S-A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<CR>==", opts({ desc = "Move Up" }))
-kset("i", "<S-A-j>", "<esc><cmd>m .+1<CR>==gi", opts({ desc = "Move Down" }))
-kset("i", "<S-A-k>", "<esc><cmd>m .-2<CR>==gi", opts({ desc = "Move Up" }))
-kset("v", "<S-A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", opts({ desc = "Move Down" }))
-kset("v", "<S-A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", opts({ desc = "Move Up" }))
+kset("n", "<S-C-j>", "<cmd>execute 'move .+' . v:count1<CR>==", opts({ desc = "Move Down" }))
+kset("n", "<S-C-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<CR>==", opts({ desc = "Move Up" }))
+kset("i", "<S-C-j>", "<esc><cmd>m .+1<CR>==gi", opts({ desc = "Move Down" }))
+kset("i", "<S-C-k>", "<esc><cmd>m .-2<CR>==gi", opts({ desc = "Move Up" }))
+kset("v", "<S-C-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", opts({ desc = "Move Down" }))
+kset("v", "<S-C-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", opts({ desc = "Move Up" }))
 
 kset("n", "<leader>cf", function() vim.lsp.buf.format() end, opts({ desc = "Format file" }))
-
--- kset("n", "<Down>", function() Switchfiles.select() end, opts({ desc = "Select similar file" }))
--- kset("n", "<Up", function() Switchfiles.switch() end, opts({ desc = "Switch to similar file" }))
 
 kset("n", "<leader>e", qf_util.toggle_qf, opts({ desc = "Quickfix list" }))
 
@@ -71,18 +66,16 @@ kset("n", "<leader>cd", vim.diagnostic.open_float, opts({ desc = "Show Line Diag
 kset("n", "<leader>f", "<cmd>FzfLua files<CR>", opts({ desc = "Find files" }))
 kset("n", "<leader>/", "<cmd>FzfLua live_grep<CR>", opts({ desc = "Grep files" }))
 kset("n", "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<CR>", opts({ desc = "Buffers" }))
-kset("n", "<leader>m", "<cmd>FzfLua marks<CR>", opts({ desc = "Marks" }))
 
 -- Search
 kset("n", "<leader>sj", "<cmd>FzfLua jumps<CR>", opts({ desc = "Jumps" }))
 kset("n", "<leader>sr", function() FzfLua.resume() end, opts({ desc = "Resume search" }))
-kset("n", "<leader>sR", "<cmd>FzfLua registers<CR>", opts({ desc = "Registers" }))
-kset("n", "<leader>sv", "<cmd>FzfLua grep_visual<CR>", opts({ desc = "Grep visual selection" }))
 kset("n", "<leader>sw", "<cmd>FzfLua grep_cword<CR>", opts({ desc = "Grep word under cursor" }))
 kset("n", "<leader>ss", "<cmd>FzfLua lsp_document_symbols<CR>", opts({ desc = "Document symbols" }))
 kset("n", "<leader>sS", "<cmd>FzfLua lsp_workspace_symbols<CR>", opts({ desc = "Workspace symbols" }))
 kset("n", "<leader>sd", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts({ desc = "Document diagnostics" }))
 kset("n", "<leader>sD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", opts({ desc = "Workspace diagnostics" }))
+kset("n", "<leader>sq", gitsigns.setqflist, opts({ desc = "Show hunks in qf" }))
 
 -- Go to
 kset("n", "gr", function() vim.lsp.buf.references(nil, { on_list = lsp_utils.on_list }) end,
@@ -130,16 +123,41 @@ kset("n", "<leader>ql", function() require("persistence").load({ last = true }) 
 kset("n", "s", "<cmd>HopWord<CR>", opts({ desc = "Hop word" }))
 kset("n", "L", "<cmd>HopLine<CR>", opts({ desc = "Hop line" }))
 
+-- AI
+kset("n", "<leader>as", "<cmd>CopilotChatStop<CR>", opts({ desc = "Stop copilot current output" }))
+kset("n", "<leader>am", function()
+  vim.cmd("CopilotChatModels")
+end, { desc = "Change CopilotChat Model" })
+kset("n", "<leader>ar", "<cmd>CopilotChatReset<CR>", {
+  desc = "Select Model CopilotChat",
+})
+kset("n", "<leader>ac", function()
+  local chat = require("CopilotChat")
+  local filepath = file_utils.getRelFilePath()
+  chat.open({
+    model = chat.config.model
+  })
+  chat.chat:append(table.concat({
+    "> #file:" .. filepath,
+  }, "\n"))
+end, { desc = "Open CopilotChat" })
+kset("n", "<leader>ar", "<cmd>CopilotChatReset<CR>", {
+  desc = "Reset CopilotChat",
+})
+kset("n", "<leader>ap", function()
+  local filepath = file_utils.getRelFilePath()
+  vim.fn.setreg("+", "#file:" .. filepath)
+  vim.notify("Copied: " .. filepath)
+end, { desc = "Copy project-relative path to clipboard" })
+kset("n", "<leader>ag", function()
+  local filepath = file_utils.getRelFilePath()
+  local dir = vim.fn.fnamemodify(filepath, ":h")
+  local glob = ">#glob:" .. dir .. "/*"
+  vim.fn.setreg("+", glob)
+  vim.notify("Copied: " .. glob)
+end, { desc = "Copy project-relative path glob to clipboard" })
+
 -- UI
+kset("n", "<leader>uu", require("undotree").open, opts({ desc = "Undotree" }))
 kset("n", "<leader>uc", "<cmd>FzfLua colorschemes<CR>", opts({ desc = "Show colorschemes" }))
 kset("n", "<leader>uC", "<cmd>FzfLua awesome_colorschemes<CR>", opts({ desc = "Show awesome colorschemes" }))
-kset("n", "<leader>uf", function()
-  vim.miedziany.statusline.show_full_path = not vim.miedziany.statusline.show_full_path
-end, opts({ desc = "Toggle show full path in statusline" }))
-kset("n", "<leader>up", function()
-  if require "precognition".toggle() then
-    vim.notify("precognition on")
-  else
-    vim.notify("precognition off")
-  end
-end, opts({ desc = "Toggle precognition" }))

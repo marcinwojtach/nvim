@@ -8,7 +8,6 @@ vim.o.statusline = "%f %h%w%m%r%=%-14.(%l,%c%V%) %P"
 See `:h "statusline'` for more information about statusline.
 ]]
 
-local devicons = require "nvim-web-devicons"
 local lsp_util = require "utils.lsp"
 
 local h_groups = {
@@ -36,53 +35,6 @@ local function list_lsps()
       end)
       :totable()
   return table.concat(names, ", ")
-end
-
---- @return string
-local function git_branch()
-  local branch = vim.b.gitsigns_head
-
-  if branch == '' or branch == nil then
-    return ''
-  end
-
-  local icon, color = devicons.get_icon_color("git", "git")
-  vim.api.nvim_set_hl(0, 'MyGitIcon', { fg = color })
-  local git_icon = icon or ""
-
-  return "%#MyGitIcon#" .. git_icon .. " " .. string.format('%%#StatusLineMedium#%s%%*', branch)
-end
-
----@return string
-local function workspace()
-  local function file_icon()
-    local file_name = vim.fn.expand("%:t")
-    local icon, color = devicons.get_icon_color(file_name, vim.bo.filetype)
-    local file_icon = icon or ""
-    vim.api.nvim_set_hl(0, 'MyFileColor', { fg = color })
-    return "%#MyFileColor#" .. file_icon .. " %#Statusline#"
-  end
-
-  local function short_path()
-    local file_name = vim.fn.expand("%:t")
-    local work_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':t');
-
-    if file_name ~= "" then
-      return work_dir .. "%#Statusline# ~ " .. file_icon() .. file_name
-    end
-
-    return work_dir
-  end
-
-  local function long_path()
-    return vim.fn.expand('%:p:.') .. " " .. file_icon()
-  end
-
-  if vim.miedziany.statusline.show_full_path then
-    return long_path()
-  else
-    return short_path()
-  end
 end
 
 ---@return string

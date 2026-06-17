@@ -1,12 +1,12 @@
+require 'options'
+
 require 'plugins'
 
-require 'options'
 require 'cmds'
 require 'keymaps'
 
-vim.cmd.colorscheme "ayu-dark"
+vim.cmd.colorscheme "ayu-mirage"
 
 require 'lsp'
--- require 'cursorline'
 require 'statusline'
 require 'diagnostics'

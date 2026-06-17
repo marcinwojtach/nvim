@@ -2,11 +2,8 @@ return {
   "angularls",
   "bashls",
   "cssls",
-  -- "custom_elements_ls",
-  -- "emmet_language_server",
-  -- "eslint",
+  "eslint",
   "elmls",
-  "gleam",
   "gopls",
   "golangci_lint_ls",
   "html",
@@ -20,5 +17,4 @@ return {
   "omnisharp",
   "templ",
   "vtsls",
-  -- 'ts_ls'
 }
