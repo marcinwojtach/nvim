@@ -139,6 +139,36 @@ ls.add_snippets(nil, {
           what = i(4, 'What'),
         }
       )
+    ),
+    s(
+      {
+        trig = "comp",
+        namr = "Angular component",
+      },
+      fmt(
+      [[
+      import {{ ChangeDetectionStrategy, Component }} from "@angular/core";
+
+      @Component({{
+        selector: '{selector}',
+        templateUrl: '{fileName}.component.html',
+        styleUrl: '{fileName}.component.scss',
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        imports: [],
+      }})
+      export class {className}Component {{
+
+      }}
+      ]],
+        {
+          selector = i(1, 'selector'),
+          fileName = i(2, 'file name'),
+          className = i(3, 'ComponentClassName'),
+        },
+        {
+          repeat_duplicates = true,
+        }
+      )
     )
   }
 })
