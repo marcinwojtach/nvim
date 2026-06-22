@@ -31,7 +31,6 @@ vim.pack.add({
   -- MISC
   "https://github.com/karb94/neoscroll.nvim",
   "https://github.com/tris203/precognition.nvim",
-  "https://github.com/echasnovski/mini.snippets",
   "https://github.com/windwp/nvim-autopairs",
   "https://github.com/folke/todo-comments.nvim",
   "https://github.com/RRethy/vim-illuminate",
@@ -46,6 +45,10 @@ vim.pack.add({
   "https://github.com/RRethy/base16-nvim",
   "https://github.com/zenbones-theme/zenbones.nvim",
   "https://github.com/skardyy/makurai-nvim",
+  -- SNIPPETS
+  "https://github.com/L3MON4D3/LuaSnip",
+  "https://github.com/rafamadriz/friendly-snippets",
+  "https://github.com/saadparwaiz1/cmp_luasnip",
   -- AI
   "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
 })
@@ -58,6 +61,7 @@ require "plugins.alpha"
 require "plugins.fzf"
 require "plugins.bqf"
 require "plugins.ai"
+require "plugins.snippets"
 
 -- quick setup
 require "gitsigns".setup({

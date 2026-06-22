@@ -43,7 +43,7 @@ local config = require 'CopilotChat.config'
 
 config.headers = vim.tbl_deep_extend('force', config.headers, {
   user = '👤 You',
-  assistant = '🤖 AI',
+  assistant = '🤖 Slave',
   tool = '🔧 Tool',
 })
 config.auto_insert_mode = true
@@ -83,6 +83,59 @@ config.prompts = vim.tbl_deep_extend('force', config.prompts, {
           *  Every it block constains only one expect keyword.
           *  Start every describe block with 'while' keyword describing intent.
           *  Start every it block with 'should' keyword describing behavior.
+    ]]
+  },
+  JestTextBlueprint = {
+    prompt = [[
+      You are an expert Typescript and Angular developer writing tests in Jest.
+      Write an unit test for the attached file.
+      Follow the blueprint below:
+
+      - do not mock all properties when using mock function, but if needed, create a signal or observable subject property and assign it to the mock.
+
+      import { ClassToTest } from './the-file-name.spec';
+      import { DepOne } from './some-dep-one';
+      import { DepTwo } from './some-dep-two';
+      import { mock, MockProxy } from '@the/utils/spec-helpers/mock.helper';
+      import { of } from 'rxjs';
+
+      describe('ClassToTest', () => {
+        let subject: ClassToTest;
+        let depOne: MockProxy<DepOne>;
+        let depTwo: MockProxy<DepTwo>;
+
+        beforeEach(() => {
+          depOne = mock<DepOne>({});
+          depTwo = mock<DepTwo>({
+            someObservable: jest.fn().mockReturnValue(of(true)),
+          });
+
+          subject = new ClassToTest(
+            depOne,
+            depTwo,
+          );
+        })
+
+        describe('methodNameX', () => {
+          describe('when someObservable returns true', () => {
+            it('should return Y', () => {
+              // one expect per it statement
+            })
+          })
+
+          describe('when someObservable returns false', () => {
+            it('should return X', () => {
+              // one expect per it statement
+            })
+          })
+        })
+
+        describe('methodNameY', () => {
+          it('should do ABC', () => {
+            // one expect per it statement
+          })
+        })
+      })
     ]]
   }
 })

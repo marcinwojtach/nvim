@@ -2,6 +2,7 @@ local gitsigns = require "gitsigns"
 local lsp_utils = require "utils.lsp"
 local file_utils = require "utils.files"
 local qf_util = require "utils.quickfix"
+local ls = require "luasnip"
 
 local default_opts = { noremap = true, silent = true }
 local kset = vim.keymap.set
@@ -86,7 +87,8 @@ kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definition
 kset("n", "gi", vim.lsp.buf.implementation, ({ desc = "Goto Implementations", nowait = true }))
 kset("n", "go", vim.lsp.buf.outgoing_calls, opts({ desc = "Show Outgoing calls", nowait = true }))
 kset("n", "gO", vim.lsp.buf.incoming_calls, opts({ desc = "Show Incoming calls", nowait = true }))
-kset("n", "gV","<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts({ desc = "Goto Definition in Vertical Split", nowait = true }))
+kset("n", "gV", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>",
+  opts({ desc = "Goto Definition in Vertical Split", nowait = true }))
 
 kset("n", "gl", "$", opts({ desc = "Goto line end" }))
 kset("n", "gh", "0", opts({ desc = "Goto line start" }))
@@ -156,6 +158,16 @@ kset("n", "<leader>ag", function()
   vim.fn.setreg("+", glob)
   vim.notify("Copied: " .. glob)
 end, { desc = "Copy project-relative path glob to clipboard" })
+
+-- SNIPPETS
+kset({ "i" }, "<C-K>", function() ls.expand() end, opts({ desc = "Expand snippet" }))
+kset({ "i", "s" }, "<C-L>", function() ls.jump(1) end, opts({ desc = "Go to next input" }))
+kset({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, opts({ desc = "Go to previous input" }))
+kset({ "i", "s" }, "<C-E>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end, opts({ desc = "Change choice "}))
 
 -- UI
 kset("n", "<leader>uu", require("undotree").open, opts({ desc = "Undotree" }))

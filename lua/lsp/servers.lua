@@ -3,7 +3,6 @@ return {
   "bashls",
   "cssls",
   "eslint",
-  "elmls",
   "gopls",
   "golangci_lint_ls",
   "html",
@@ -12,9 +11,7 @@ return {
   "jdtls",
   "lua_ls",
   "pyright",
-  "rescriptls",
   "sqls",
-  "omnisharp",
   "templ",
   "vtsls",
 }
