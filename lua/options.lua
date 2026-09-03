@@ -27,7 +27,7 @@ opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
 opt.inccommand = "nosplit"
 opt.jumpoptions = "view"
-opt.laststatus = 3
+opt.laststatus = 2
 opt.linebreak = true
 local space = " "
 opt.listchars:append {

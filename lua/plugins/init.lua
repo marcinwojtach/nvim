@@ -29,7 +29,6 @@ vim.pack.add({
   "https://github.com/goolord/alpha-nvim",
   "https://github.com/lukas-reineke/indent-blankline.nvim",
   -- MISC
-  "https://github.com/karb94/neoscroll.nvim",
   "https://github.com/tris203/precognition.nvim",
   "https://github.com/windwp/nvim-autopairs",
   "https://github.com/folke/todo-comments.nvim",
@@ -38,6 +37,7 @@ vim.pack.add({
   "https://github.com/catgoose/nvim-colorizer.lua",
   "https://github.com/EvWilson/spelunk.nvim",
   "https://github.com/smoka7/hop.nvim",
+  -- THEMES
   "https://github.com/kungfusheep/mfd.nvim",
   "https://github.com/oneslash/helix-nvim",
   "https://github.com/savq/melange-nvim",
@@ -45,6 +45,9 @@ vim.pack.add({
   "https://github.com/RRethy/base16-nvim",
   "https://github.com/zenbones-theme/zenbones.nvim",
   "https://github.com/skardyy/makurai-nvim",
+  "https://github.com/Yazeed1s/oh-lucy.nvim",
+  "https://github.com/mcauley-penney/techbase.nvim",
+  "https://github.com/WTFox/luna.nvim",
   -- SNIPPETS
   "https://github.com/L3MON4D3/LuaSnip",
   "https://github.com/rafamadriz/friendly-snippets",
@@ -75,7 +78,7 @@ require "yazi".setup({
 require "illuminate".configure()
 require "todo-comments".setup()
 require "persistence".setup()
-require "ibl".setup()
+-- require "ibl".setup()
 require "colorizer".setup()
 require "mason".setup()
 require "spelunk".setup({
@@ -85,3 +88,5 @@ require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
 
 -- local
 require "plugins.switchfiles"
+
+-- for LSP, mason visit /lsp/init.lua

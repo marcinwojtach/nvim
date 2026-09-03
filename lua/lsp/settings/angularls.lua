@@ -1,37 +1,33 @@
-local ok, util = pcall(require, 'lspconfig.util')
-if not ok then
-  vim.notify 'lspconfig.util could not be loaded'
-  return
-end
+local mason = vim.fn.stdpath("data") .. "/mason"
+local ngserver = mason .. "/bin/ngserver"
+local project_node_modules = vim.fn.getcwd() .. "/node_modules"
+local ngls_node_modules = mason .. "/packages/angular-language-server/node_modules"
 
-local function get_probe_dir(root_dir)
-  local project_root = vim.fs.dirname(vim.fs.find('node_modules', { path = root_dir, upward = true })[1])
-
-  return project_root and (project_root .. '/node_modules') or ''
-end
-
-local config = {
-  on_new_config = function(new_config, new_root_dir)
-    local probe_dir= get_probe_dir(new_root_dir)
-    new_config.cmd = {
-      "ngserver",
-      "--stdio",
-      "--tsProbeLocations",
-      probe_dir,
-      "--ngProbeLocations",
-      probe_dir,
-    }
-  end,
-  root_dir = function(fname)
-    return util.root_pattern(
-      "angular.json",
-      "workspace.json",
-      "nx.json",
-      "package.json",
-      "tsconfig.base.json"
-    )(fname)
-  end,
-  filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+local ngserver_cmd = {
+  ngserver,
+  "--stdio",
+  "--tsProbeLocations", project_node_modules, ngls_node_modules,
+  "--ngProbeLocations", project_node_modules, ngls_node_modules,
 }
 
-return config
+return {
+  cmd = ngserver_cmd,
+  filetypes = { 'typescript', 'html', 'htmlangular', 'typescriptreact' },
+  root_markers = { 'angular.json', 'project.json', 'package.json', 'nx.json' },
+  on_new_config = function(new_config, new_root_dir)
+    local local_node = new_root_dir .. "/node_modules"
+    if vim.fn.isdirectory(local_node) == 1 then
+      new_config.cmd = {
+        "ngserver",
+        "--stdio",
+        "--tsProbeLocations", local_node,
+        "--ngProbeLocations", local_node
+      }
+    end
+  end,
+  capabilities = {
+    textDocument = {
+      rename = vim.NIL
+    }
+  }
+}

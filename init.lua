@@ -5,7 +5,7 @@ require 'plugins'
 require 'cmds'
 require 'keymaps'
 
-vim.cmd.colorscheme "ayu-mirage"
+vim.cmd.colorscheme 'ayu-mirage'
 
 require 'lsp'
 require 'statusline'

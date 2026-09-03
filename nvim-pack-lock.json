@@ -68,6 +68,10 @@
       "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
       "src": "https://github.com/kdheepak/lazygit.nvim"
     },
+    "luna.nvim": {
+      "rev": "873b8bc9909fc84041e57e9a1dab66ac43479661",
+      "src": "https://github.com/WTFox/luna.nvim"
+    },
     "makurai-nvim": {
       "rev": "138d113a190c26ef7261bc5bc6b7fb22ae72ae60",
       "src": "https://github.com/skardyy/makurai-nvim"
@@ -128,6 +132,10 @@
       "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
+    "oh-lucy.nvim": {
+      "rev": "2d94e9b03efe4c50f4653b6f2b7b200d970fe1aa",
+      "src": "https://github.com/Yazeed1s/oh-lucy.nvim"
+    },
     "oil.nvim": {
       "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
@@ -151,6 +159,10 @@
     "spelunk.nvim": {
       "rev": "213c65863d80f5625c25405243d176ed11dc3740",
       "src": "https://github.com/EvWilson/spelunk.nvim"
+    },
+    "techbase.nvim": {
+      "rev": "329d22d2071473eb4ab97734d2e01094c963f4ff",
+      "src": "https://github.com/mcauley-penney/techbase.nvim"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",

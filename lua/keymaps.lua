@@ -50,7 +50,6 @@ kset("n", "-", "<CMD>Oil<CR>", opts({ desc = "Open parent directory" }))
 
 -- Code action
 kset("n", "<leader>ca", vim.lsp.buf.code_action, opts({ desc = "Code Action" }))
-kset("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
 kset("n", "<leader>co",
   function()
     vim.lsp.buf.code_action({
@@ -61,7 +60,6 @@ kset("n", "<leader>co",
   end,
   opts({ desc = "Organize Imports" })
 )
-kset("n", "<leader>cd", vim.diagnostic.open_float, opts({ desc = "Show Line Diagnostics" }))
 
 -- File navigation
 kset("n", "<leader>f", "<cmd>FzfLua files<CR>", opts({ desc = "Find files" }))
@@ -74,6 +72,7 @@ kset("n", "<leader>sr", function() FzfLua.resume() end, opts({ desc = "Resume se
 kset("n", "<leader>sw", "<cmd>FzfLua grep_cword<CR>", opts({ desc = "Grep word under cursor" }))
 kset("n", "<leader>ss", "<cmd>FzfLua lsp_document_symbols<CR>", opts({ desc = "Document symbols" }))
 kset("n", "<leader>sS", "<cmd>FzfLua lsp_workspace_symbols<CR>", opts({ desc = "Workspace symbols" }))
+kset("n", "<leader>sl", vim.diagnostic.open_float, opts({ desc = "Line Diagnostics" }))
 kset("n", "<leader>sd", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts({ desc = "Document diagnostics" }))
 kset("n", "<leader>sD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", opts({ desc = "Workspace diagnostics" }))
 kset("n", "<leader>sq", gitsigns.setqflist, opts({ desc = "Show hunks in qf" }))
@@ -81,6 +80,7 @@ kset("n", "<leader>sq", gitsigns.setqflist, opts({ desc = "Show hunks in qf" }))
 -- Go to
 kset("n", "gr", function() vim.lsp.buf.references(nil, { on_list = lsp_utils.on_list }) end,
   opts({ desc = "Goto References", nowait = true }))
+kset("n", "gn", vim.lsp.buf.rename, opts({ desc = "Rename token" }))
 kset("n", "gd", vim.lsp.buf.definition, opts({ desc = "Goto Definition", nowait = true }))
 kset("n", "gD", vim.lsp.buf.declaration, opts({ desc = "Goto Declarations", nowait = true }))
 kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definitions", nowait = true }))
@@ -172,4 +172,6 @@ end, opts({ desc = "Change choice "}))
 -- UI
 kset("n", "<leader>uu", require("undotree").open, opts({ desc = "Undotree" }))
 kset("n", "<leader>uc", "<cmd>FzfLua colorschemes<CR>", opts({ desc = "Show colorschemes" }))
+kset("n", "<leader>ube", "<cmd>IBLEnable<CR>", opts({ desc = "Blank Line - enable" }))
+kset("n", "<leader>ubd", "<cmd>IBLDisable<CR>", opts({ desc = "Blank Line - disable" }))
 kset("n", "<leader>uC", "<cmd>FzfLua awesome_colorschemes<CR>", opts({ desc = "Show awesome colorschemes" }))
