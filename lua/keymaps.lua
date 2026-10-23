@@ -1,6 +1,7 @@
 local gitsigns = require "gitsigns"
 local lsp_utils = require "utils.lsp"
 local file_utils = require "utils.files"
+local git_utils = require "utils.git"
 local qf_util = require "utils.quickfix"
 local ls = require "luasnip"
 local fzf = require('fzf-lua')
@@ -12,6 +13,7 @@ local function opts(extends)
   local tbl = extends or {}
   return vim.tbl_deep_extend('force', tbl, default_opts)
 end
+
 
 kset("n", "<leader>sn", "<cmd>noautocmd w <CR>", opts({ desc = "Save without formatting" }))
 
@@ -106,6 +108,12 @@ kset("n", "<leader>ght", gitsigns.toggle_current_line_blame, opts({ desc = "Togg
 kset("n", "<leader>gc", "<cmd>FzfLua git_bcommits<CR>", opts({ desc = "Git buffer commits" }))
 kset("n", "<leader>gs", "<cmd>FzfLua git_stash<CR>", opts({ desc = "Git stash" }))
 kset("n", "<leader>gb", "<cmd>FzfLua git_branches<CR>", opts({ desc = "Git branches" }))
+kset("n", "<leader>gC", function()
+  require('fzf-lua').git_commits({
+    cmd = 'git log --color --pretty=format:"%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset" '
+      .. git_utils.merge_base() .. '..HEAD',
+  })
+end, opts({ desc = "Branch commits since merge-base" }))
 kset("n", "<leader>gB", function()
   local root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
   local parent = vim.fn.systemlist('git rev-parse --abbrev-ref origin/HEAD')[1]
