@@ -116,7 +116,11 @@ kset("n", "<leader>gB", function()
     prompt = 'Branch changes> ',
     cwd = root,
     actions = fzf.defaults.actions.files,
-    fzf_opts = { ['--preview'] = 'git diff --color=always ' .. base .. ' -- {}' },
+    fzf_opts = {
+      ['--delimiter'] = '/',
+      ['--with-nth'] = '{-1}  {1..-2}',
+      ['--preview'] = 'git diff --color=always ' .. base .. ' -- {}',
+    }
   })
 end, opts({ desc = "Files changed on current branch" }))
 
