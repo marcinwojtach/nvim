@@ -3,8 +3,8 @@ return {
   -- "bashls",
   "cssls",
   "eslint",
-  -- "gopls",
-  -- "golangci_lint_ls",
+  "gopls",
+  "golangci_lint_ls",
   "html",
   -- "intelephense",
   "jsonls",
@@ -12,7 +12,7 @@ return {
   "lua_ls",
   -- "pyright",
   -- "sqls",
-  -- "templ",
+  "templ",
   -- "vtsls",
   "tsgo"
 }

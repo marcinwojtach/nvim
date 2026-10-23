@@ -12,8 +12,8 @@ for _, server in pairs(servers) do
   local is_custom_settings, custom_server_settings = pcall(require, 'lsp.settings.' .. server)
   if is_custom_settings then
     vim.lsp.config(server, custom_server_settings)
-    vim.lsp.enable(server)
   end
+  vim.lsp.enable(server)
 end
 
 vim.api.nvim_create_user_command('LspCheckhealth', function()

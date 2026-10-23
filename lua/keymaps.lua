@@ -3,6 +3,7 @@ local lsp_utils = require "utils.lsp"
 local file_utils = require "utils.files"
 local qf_util = require "utils.quickfix"
 local ls = require "luasnip"
+local fzf = require('fzf-lua')
 
 local default_opts = { noremap = true, silent = true }
 local kset = vim.keymap.set
@@ -40,8 +41,6 @@ kset("i", "<S-C-j>", "<esc><cmd>m .+1<CR>==gi", opts({ desc = "Move Down" }))
 kset("i", "<S-C-k>", "<esc><cmd>m .-2<CR>==gi", opts({ desc = "Move Up" }))
 kset("v", "<S-C-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", opts({ desc = "Move Down" }))
 kset("v", "<S-C-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", opts({ desc = "Move Up" }))
-
-kset("n", "<leader>cf", function() vim.lsp.buf.format() end, opts({ desc = "Format file" }))
 
 kset("n", "<leader>e", qf_util.toggle_qf, opts({ desc = "Quickfix list" }))
 
@@ -87,6 +86,7 @@ kset("n", "gt", vim.lsp.buf.type_definition, opts({ desc = "Goto Type Definition
 kset("n", "gi", vim.lsp.buf.implementation, ({ desc = "Goto Implementations", nowait = true }))
 kset("n", "go", vim.lsp.buf.outgoing_calls, opts({ desc = "Show Outgoing calls", nowait = true }))
 kset("n", "gO", vim.lsp.buf.incoming_calls, opts({ desc = "Show Incoming calls", nowait = true }))
+kset("n", "gf", vim.lsp.buf.format, opts({ desc = "Format file" }))
 kset("n", "gV", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>",
   opts({ desc = "Goto Definition in Vertical Split", nowait = true }))
 
@@ -106,6 +106,19 @@ kset("n", "<leader>ght", gitsigns.toggle_current_line_blame, opts({ desc = "Togg
 kset("n", "<leader>gc", "<cmd>FzfLua git_bcommits<CR>", opts({ desc = "Git buffer commits" }))
 kset("n", "<leader>gs", "<cmd>FzfLua git_stash<CR>", opts({ desc = "Git stash" }))
 kset("n", "<leader>gb", "<cmd>FzfLua git_branches<CR>", opts({ desc = "Git branches" }))
+kset("n", "<leader>gB", function()
+  local root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  local parent = vim.fn.systemlist('git rev-parse --abbrev-ref origin/HEAD')[1]
+  if vim.v.shell_error ~= 0 then parent = 'origin/main' end
+  local base = vim.fn.systemlist('git merge-base HEAD ' .. parent)[1]
+
+  fzf.fzf_exec('git diff --name-only --diff-filter=d ' .. base, {
+    prompt = 'Branch changes> ',
+    cwd = root,
+    actions = fzf.defaults.actions.files,
+    fzf_opts = { ['--preview'] = 'git diff --color=always ' .. base .. ' -- {}' },
+  })
+end, opts({ desc = "Files changed on current branch" }))
 
 kset("n", "<leader><leader>", "<cmd>FzfLua git_status<CR>", opts({ desc = "Git status files" }))
 
@@ -167,7 +180,7 @@ kset({ "i", "s" }, "<C-E>", function()
   if ls.choice_active() then
     ls.change_choice(1)
   end
-end, opts({ desc = "Change choice "}))
+end, opts({ desc = "Change choice " }))
 
 -- UI
 kset("n", "<leader>uu", require("undotree").open, opts({ desc = "Undotree" }))

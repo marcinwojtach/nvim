@@ -5,11 +5,20 @@ require "conform".setup({
     markdown = { "markdownlint" },
     json = { "jsonlint", "prettierd" },
     dockerfile = { "hadolint" },
-    javascript = { "prettierd", "prettier" },
-    typescript = { "prettierd", "prettier" },
+    typescript = { { "prettierd", "prettier" } },
+    typescriptreact = { { "prettierd", "prettier" } },
+    javascript = { { "prettierd", "prettier" } },
+    javascriptreact = { { "prettierd", "prettier" } },
     go = { "gofmt", "golines", "goimports", "golangci", "golangci_lint_ls", "golangci-lint" },
     html = { "htmlbeautifier", "htmlhint" },
     templ = { "templ" },
-    php = { "pint", "php_cs_fixer" }
+    php = { "pint", "php_cs_fixer" },
+    css = { "prettierd", "prettier", stop_after_first = true },
+    scss = { "prettierd", "prettier", stop_after_first = true },
+    ["_"] = { "trim_whitespace" },
   },
+  -- format_on_save = {
+  --   timeout_ms = 500,
+  --   lsp_format = "fallback",
+  -- },
 })

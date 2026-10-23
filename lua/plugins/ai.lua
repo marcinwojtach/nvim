@@ -48,7 +48,7 @@ config.headers = vim.tbl_deep_extend('force', config.headers, {
 })
 config.auto_insert_mode = true
 config.trusted_tools = true
-config.model = 'claude-haiku-4.5'
+config.model = 'gpt-5.3-codex'
 
 config.prompts = vim.tbl_deep_extend('force', config.prompts, {
   JestTest =
